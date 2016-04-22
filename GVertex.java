@@ -11,7 +11,7 @@
  * @param <T> the generic data.
  */
 public class GVertex<T extends Comparable<? super T>> 
-        implements Comparable<GVertex> {
+        implements Comparable<GVertex<T>> {
 
     /** Vertex unique ID number. */
     private int num;
