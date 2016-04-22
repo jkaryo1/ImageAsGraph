@@ -4,12 +4,12 @@
  * jkaryo1, cknowlt3, dfeldma9, dfisch11
  * P4
  * 600.226
+ * @param <VT> type of vertex
  */
 public class WEdge<VT> implements Comparable<WEdge<VT>> {
 
-	/** Weight of the edge. */
-	private double weight;
-	
+    /** Weight of the edge. */
+    private double weight; 
     /** Starting VT of an edge. */
     private VT source;
     /** Ending VT of an edge. */
@@ -20,6 +20,7 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
     /** Create an undirected edge.
      *  @param u the start
      *  @param v the end
+     *  @param w weight
      */
     public WEdge(VT u, VT v, double w) {
         this.source = u;
@@ -32,6 +33,7 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
      *  @param u the start
      *  @param v the end
      *  @param dir true if directed, false otherwise
+     *  @param w weight
      */
     public WEdge(VT u, VT v, boolean dir, double w) {
         this.source = u;
@@ -67,7 +69,7 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
      * @return weight the weight of the edge
      */
     public double weight() {
-    	return this.weight;
+        return this.weight;
     }
 
     /** Get the ending endpoint VT.
@@ -116,6 +118,6 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
 
     @Override
     public int compareTo(final WEdge<VT> e) {
-    	return Double.compare(this.weight, e.weight);
+        return Double.compare(this.weight, e.weight);
     }
 }
