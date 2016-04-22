@@ -5,6 +5,11 @@
  * P4
  * 600.226
  */
+
+/**
+ * GVertex class.
+ * @param <T> the generic data.
+ */
 public class GVertex<T extends Comparable<? super T>> 
         implements Comparable<GVertex> {
 
@@ -41,7 +46,7 @@ public class GVertex<T extends Comparable<? super T>>
      *  @param other the vertex to compare to this
      *  @return true if the same, false otherwise
      */
-    public boolean equals(T other) {
+    public boolean equals(Object other) {
         if (other instanceof GVertex) {
             GVertex v = (GVertex) other;
             return this.num == v.num;  // want these to be unique
