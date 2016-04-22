@@ -9,17 +9,20 @@ import java.util.List;
  * @param <VT> is the type
  */
 public abstract class WGraphP4<VT> implements WGraph<VT> {
+    
+    /** number of edges. */
+    int numEdges;
+    /** number of vertices. */
+    int numVerts;
 
     @Override
     public int numEdges() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.numEdges;
     }
 
     @Override
     public int numVerts() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.numVerts;
     }
 
     @Override
@@ -29,37 +32,37 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     }
 
     @Override
-    public boolean addVertex(GVertex v) {
+    public boolean addVertex(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean addEdge(WEdge e) {
+    public boolean addEdge(WEdge<VT> e) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean addEdge(GVertex v, GVertex u, double weight) {
+    public boolean addEdge(GVertex<VT> v, GVertex<VT> u, double weight) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean deleteEdge(GVertex v, GVertex u) {
+    public boolean deleteEdge(GVertex<VT> v, GVertex<VT> u) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean areAdjacent(GVertex v, GVertex u) {
+    public boolean areAdjacent(GVertex<VT> v, GVertex<VT> u) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public List neighbors(GVertex v) {
+    public List neighbors(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -71,7 +74,7 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     }
 
     @Override
-    public boolean areIncident(WEdge e, GVertex v) {
+    public boolean areIncident(WEdge<VT> e, GVertex<VT> v) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -89,13 +92,13 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     }
 
     @Override
-    public List depthFirst(GVertex v) {
+    public List depthFirst(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List incidentEdges(GVertex v) {
+    public List incidentEdges(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return null;
     }
