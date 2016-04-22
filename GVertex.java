@@ -10,7 +10,7 @@
  * GVertex class.
  * @param <T> the generic data.
  */
-public class GVertex<T extends Comparable<? super T>> 
+public class GVertex<T> 
         implements Comparable<GVertex<T>> {
 
     /** Vertex unique ID number. */

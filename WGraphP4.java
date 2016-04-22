@@ -6,8 +6,9 @@ import java.util.List;
  * jkaryo1, cknowlt3, dfeldma9, dfisch11
  * P4
  * 600.226
+ * @param <VT> is the type
  */
-public abstract class WGraphP4 implements WGraph<VT> {
+public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public int numEdges() {
