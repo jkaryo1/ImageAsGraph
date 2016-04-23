@@ -192,7 +192,9 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<WEdge<VT>> incidentEdges(GVertex<VT> v) {
-        // TODO Auto-generated method stub
+        if (this.map.containsKey(v)) {
+            return this.map.get(v);
+        }
         return null;
     }
 
