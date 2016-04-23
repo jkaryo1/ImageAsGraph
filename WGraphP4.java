@@ -17,14 +17,17 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     
     /** the number of edges. */
     private int numEdges;
-    /** Adjacency/Incidence Hashmap. */
+    /** 
+     * Adjacency/Incidence Hashmap.
+     * Stores a vertex and list of incident edges.
+     */
     private HashMap<GVertex<VT>, ArrayList<WEdge<VT>>> map;
     
     /**
      * Constructor for WGraphP4.
      * @param maxVerts the maximum number of vertexes.
      */
-    public WGraphP4(int maxVerts) {
+    public WGraphP4() {
         this.nextID = 0;
         this.numEdges = 0;
         this.map = new HashMap<GVertex<VT>, ArrayList<WEdge<VT>>>();
@@ -47,8 +50,13 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public boolean addVertex(GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return false;
+        ArrayList<WEdge<VT>> list = new ArrayList<WEdge<VT>>();
+        if (this.map.containsKey(v)) { // already in our map
+            return false;
+        } else {
+            this.map.put(v, list);
+            return true;
+        }
     }
 
     @Override
