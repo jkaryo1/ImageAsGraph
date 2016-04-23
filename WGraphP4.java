@@ -17,13 +17,8 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     
     /** the number of edges. */
     private int numEdges;
-    /** Hashmap that holds edges. */
-    private HashMap<GVertex<VT>, ArrayList<GVertex<VT>>> edges;
-    
-    /** Array List that holds vertexes. */
-    private ArrayList<GVertex<VT>> verts;
-    /** Our Adjacency Matrix, ints for weight. */
-    private int[][] matrix;
+    /** Adjacency/Incidence Hashmap. */
+    private HashMap<GVertex<VT>, ArrayList<WEdge<VT>>> map;
     
     /**
      * Constructor for WGraphP4.
@@ -32,9 +27,7 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     public WGraphP4(int maxVerts) {
         this.nextID = 0;
         this.numEdges = 0;
-        this.edges = new HashMap<GVertex<VT>, ArrayList<GVertex<VT>>>();
-        this.verts = new ArrayList<GVertex<VT>>(maxVerts);
-        this.matrix = new int[maxVerts][maxVerts];
+        this.map = new HashMap<GVertex<VT>, ArrayList<WEdge<VT>>>();
     }
 
     @Override
@@ -44,7 +37,7 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public int numVerts() {
-        return this.verts.size();
+        return this.map.size();
     }
 
     @Override
