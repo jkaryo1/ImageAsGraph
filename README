@@ -1,0 +1,30 @@
+Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer
+jkaryo1, cknowlt3, dfeldma9, dfisch11
+---------------------------------------------//
+
+Part I - Graph Implementation 
+
+--------------------------------------------//
+
+Part 1 was relatively easy as all we had to do was 
+slightly alter the GraphAdjMatrix.java implementation
+and make it use an  adjacency/incidence list. We chose 
+to use a hashmap list that holds a vertex and an ArrayList
+of Edges incident to the vertex. We all worked and tested 
+each others' code so it is hard to say who exactly did what.
+
+--------------------------------------------//
+
+Part II - Minimally Weighted Spanning Trees
+
+--------------------------------------------//
+
+NOTES HERE
+
+--------------------------------------------//
+
+Part III - Images as Graphs
+
+--------------------------------------------//
+
+NOTES HERE
