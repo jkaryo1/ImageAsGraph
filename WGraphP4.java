@@ -67,14 +67,31 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public boolean addEdge(WEdge<VT> e) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean added = false;
+        added = this.addEdge(e.source(), e.end(), e.weight());
+        return added;
     }
 
     @Override
     public boolean addEdge(GVertex<VT> v, GVertex<VT> u, double weight) {
-        // TODO Auto-generated method stub
-        return false;
+        WEdge<VT> edge = new WEdge<VT>(v, u, weight);
+        boolean success = true;
+        if (!this.map.containsKey(v)) {
+            success = this.addVertex(v);
+        }
+        if (success && !this.map.containsKey(u)) {
+            success = this.addVertex(u);
+        }
+        if (!success) {
+            return false;
+        }
+        // put the edge in, if not already there
+        if (!this.map.get(v).contains(edge)) {
+            this.map.get(v).add(edge);
+            this.map.get(u).add(edge);
+            this.numEdges++;
+        }
+        return true; 
     }
 
     @Override
