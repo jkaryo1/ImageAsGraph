@@ -14,8 +14,6 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
     private GVertex<VT> source;
     /** Ending VT of an edge. */
     private GVertex<VT> end;
-    /** Whether or not the edge is directed. */
-    private boolean directed;
 
     /** Create an undirected edge.
      *  @param u the start
@@ -25,20 +23,6 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
     public WEdge(GVertex<VT> u, GVertex<VT> v, double w) {
         this.source = u;
         this.end = v;
-        this.directed = false;
-        this.weight = w;
-    }
-
-    /** Create an edge.
-     *  @param u the start
-     *  @param v the end
-     *  @param dir true if directed, false otherwise
-     *  @param w weight
-     */
-    public WEdge(GVertex<VT> u, GVertex<VT> v, boolean dir, double w) {
-        this.source = u;
-        this.end = v;
-        this.directed = dir;
         this.weight = w;
     }
 
@@ -46,7 +30,7 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
      *  @return true if yes, false otherwise
      */
     public boolean isDirected() {
-        return this.directed;
+        return false;
     }
 
     /** Is a VT incident to this edge.
@@ -93,18 +77,7 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
     public boolean equals(Object other) {
         if (other instanceof WEdge<?>) {
             WEdge<VT> e = (WEdge<VT>) other;
-            if (this.directed != e.directed) {
-                return false;
-            }
-            if (this.directed) {
-                return this.source.equals(e.source)
-                    && this.end.equals(e.end);
-            } else {
-                return this.source.equals(e.source)
-                    && this.end.equals(e.end)
-                    || this.source.equals(e.end)
-                    && this.end.equals(e.source);
-            }
+            return this.source.equals(e.source) && this.end.equals(e.end);
         }
         return false;
     }
