@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,10 +12,30 @@ import java.util.List;
  */
 public abstract class WGraphP4<VT> implements WGraph<VT> {
     
-    /** number of edges. */
-    int numEdges;
-    /** number of vertices. */
-    int numVerts;
+    /** Used to generate Vertex IDs. */
+    private int nextID;
+    
+    /** the number of edges. */
+    private int numEdges;
+    /** Hashmap that holds edges. */
+    private HashMap<GVertex<VT>, ArrayList<GVertex<VT>>> edges;
+    
+    /** Array List that holds vertexes. */
+    private ArrayList<GVertex<VT>> verts;
+    /** Our Adjacency Matrix, ints for weight. */
+    private int[][] matrix;
+    
+    /**
+     * Constructor for WGraphP4.
+     * @param maxVerts the maximum number of vertexes.
+     */
+    public WGraphP4(int maxVerts) {
+        this.nextID = 0;
+        this.numEdges = 0;
+        this.edges = new HashMap<GVertex<VT>, ArrayList<GVertex<VT>>>();
+        this.verts = new ArrayList<GVertex<VT>>(maxVerts);
+        this.matrix = new int[maxVerts][maxVerts];
+    }
 
     @Override
     public int numEdges() {
@@ -22,13 +44,12 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public int numVerts() {
-        return this.numVerts;
+        return this.verts.size();
     }
 
     @Override
     public int nextID() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.nextID++;
     }
 
     @Override
