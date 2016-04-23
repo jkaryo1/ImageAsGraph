@@ -33,11 +33,11 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
         return false;
     }
 
-    /** Is a VT incident to this edge.
-     *  @param v the VT
+    /** Is a GVertex<VT> incident to this edge.
+     *  @param v the GVertex<VT>
      *  @return true if source or end, false otherwise
      */
-    public boolean isIncident(VT v) {
+    public boolean isIncident(GVertex<VT> v) {
         return this.source.equals(v) || this.end.equals(v);
     }
 
