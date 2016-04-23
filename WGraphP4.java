@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -96,60 +97,107 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public boolean deleteEdge(GVertex<VT> v, GVertex<VT> u) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean firstDel = false;
+        boolean secDel = false;
+        if (this.map.containsKey(v) && this.map.containsKey(u)) {
+            for (WEdge<VT> edge : this.map.get(v)) {
+                if (edge.source().equals(v) && edge.end().equals(u)) {
+                    this.map.remove(edge);
+                    firstDel = true;
+                }
+            }
+            for (WEdge<VT> edge : this.map.get(u)) {
+                if (edge.source().equals(u) && edge.end().equals(v)) {
+                    this.map.remove(edge);
+                    secDel = true;
+                }
+            }
+        }
+        return firstDel && secDel;
     }
 
     @Override
     public boolean areAdjacent(GVertex<VT> v, GVertex<VT> u) {
-        // TODO Auto-generated method stub
+        if (this.map.containsKey(v) && this.map.containsKey(u)) {
+            for (WEdge<VT> edge : this.map.get(v)) {
+                if (edge.source().equals(v) && edge.end().equals(u)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
-    public List neighbors(GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<GVertex<VT>> neighbors(GVertex<VT> v) {
+        ArrayList<GVertex<VT>> nbs = new ArrayList<GVertex<VT>>();
+        if (this.map.containsKey(v)) {
+            for (WEdge<VT> edge : this.map.get(v)) {
+                nbs.add(edge.end());
+            }
+        }
+        return nbs;
     }
 
     @Override
     public int degree(GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.neighbors(v).size();
     }
 
     @Override
     public boolean areIncident(WEdge<VT> e, GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return false;
+        return e.source().equals(v) || e.end().equals(v);
     }
 
     @Override
-    public List allEdges() {
+    public List<WEdge<VT>> allEdges() {
+        ArrayList<WEdge<VT>> edges = new ArrayList<WEdge<VT>>();
+        for (ArrayList<WEdge<VT>> element : this.map.values()) {
+            for (WEdge<VT> edge : element) {
+                edges.add(edge);
+            }
+        }
+        return edges;
+    }
+
+    @Override
+    public List<GVertex<VT>> allVertices() {
+        ArrayList<GVertex<VT>> verts = new ArrayList<GVertex<VT>>();
+        for (GVertex<VT> vertex : this.map.keySet()) {
+            verts.add(vertex);
+        }
+        return verts;
+    }
+
+    @Override
+    public List<GVertex<VT>> depthFirst(GVertex<VT> v) {
+        ArrayList<GVertex<VT>> reaches = new ArrayList<GVertex<VT>>();
+        // using LinkedList<Vertex> as a Stack
+        LinkedList<GVertex<VT>> stack = new LinkedList<GVertex<VT>>();
+        boolean[] visited = new boolean[this.numVerts()];  // inits to false
+        stack.addFirst(v);
+        visited[v.id()] = true;
+        while (!stack.isEmpty()) {
+            v = stack.removeFirst();
+            reaches.add(v);
+            for (GVertex<VT> u: this.neighbors(v)) {
+                if (!visited[u.id()]) {
+                    visited[u.id()] = true;
+                    stack.addFirst(u);
+                }
+            }
+        }
+        return reaches;
+    }
+
+    @Override
+    public List<WEdge<VT>> incidentEdges(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public List allVertices() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List depthFirst(GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List incidentEdges(GVertex<VT> v) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List kruskals() {
+    public List<WEdge<VT>> kruskals() {
         // TODO Auto-generated method stub
         return null;
     }
