@@ -25,7 +25,6 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     
     /**
      * Constructor for WGraphP4.
-     * @param maxVerts the maximum number of vertexes.
      */
     public WGraphP4() {
         this.nextID = 0;
@@ -46,6 +45,13 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     @Override
     public int nextID() {
         return this.nextID++;
+    }
+    
+    @Override
+    public boolean addVertex(VT d) {
+        ArrayList<WEdge<VT>> list = new ArrayList<WEdge<VT>>();
+        this.map.put(new GVertex<VT>(d, this.nextID++), list);
+        return true;
     }
 
     @Override
@@ -90,7 +96,7 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     }
 
     @Override
-    public int degree(GVertex v) {
+    public int degree(GVertex<VT> v) {
         // TODO Auto-generated method stub
         return 0;
     }
@@ -130,11 +136,4 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
         // TODO Auto-generated method stub
         return null;
     }
-
-    @Override
-    public boolean addVertex(VT d) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    
 }
