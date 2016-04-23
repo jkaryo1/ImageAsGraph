@@ -11,7 +11,7 @@ import java.util.List;
  * 600.226
  * @param <VT> is the type
  */
-public abstract class WGraphP4<VT> implements WGraph<VT> {
+public class WGraphP4<VT> implements WGraph<VT> {
     
     /** Used to generate Vertex IDs. */
     private int nextID;
@@ -76,6 +76,8 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
     @Override
     public boolean addEdge(GVertex<VT> v, GVertex<VT> u, double weight) {
         WEdge<VT> edge = new WEdge<VT>(v, u, weight);
+        WEdge<VT> edgeR = new WEdge<VT>(u, v, weight);
+ 
         boolean success = true;
         if (!this.map.containsKey(v)) {
             success = this.addVertex(v);
@@ -89,10 +91,11 @@ public abstract class WGraphP4<VT> implements WGraph<VT> {
         // put the edge in, if not already there
         if (!this.map.get(v).contains(edge)) {
             this.map.get(v).add(edge);
-            this.map.get(u).add(edge);
+            this.map.get(u).add(edgeR);
             this.numEdges++;
+            return true;
         }
-        return true; 
+        return false; 
     }
 
     @Override
