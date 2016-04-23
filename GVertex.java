@@ -48,7 +48,7 @@ public class GVertex<T>
      */
     public boolean equals(Object other) {
         if (other instanceof GVertex) {
-            GVertex v = (GVertex) other;
+            GVertex<T> v = (GVertex<T>) other;
             return this.num == v.num;  // want these to be unique
         }
         return false;
@@ -65,7 +65,7 @@ public class GVertex<T>
      *  @param other the vertex to compare to this
      *  @return negative if this < other, 0 if equal, positive if this > other
      */
-    public int compareTo(GVertex other) {
+    public int compareTo(GVertex<T> other) {
         return this.num - other.num;
     }
 }
