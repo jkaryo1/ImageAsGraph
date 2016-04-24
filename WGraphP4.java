@@ -115,17 +115,18 @@ public class WGraphP4<VT> implements WGraph<VT> {
         if (this.map.containsKey(v) && this.map.containsKey(u)) {
             for (WEdge<VT> edge : this.map.get(v)) {
                 if (edge.source().equals(v) && edge.end().equals(u)) {
-                    this.map.remove(edge);
+                    this.map.get(v).remove(edge);
                     firstDel = true;
                 }
             }
             for (WEdge<VT> edge : this.map.get(u)) {
                 if (edge.source().equals(u) && edge.end().equals(v)) {
-                    this.map.remove(edge);
+                    this.map.get(u).remove(edge);
                     secDel = true;
                 }
             }
         }
+        this.numEdges--;
         return firstDel && secDel;
     }
 

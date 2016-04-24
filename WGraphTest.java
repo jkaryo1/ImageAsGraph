@@ -37,8 +37,11 @@ public class WGraphTest {
     
     @Test
     public void testAddEdge() {
-        assertEquals(true, g.addEdge(e));
         assertEquals(true, g.addEdge(v, x, 2));
+        assertEquals("[(0,2,2.0)]", g.incidentEdges(v).toString());
+        assertEquals(true, g.addEdge(e));
+        // Testing the Collections.sort()
+        assertEquals("[(0,1,1.0), (0,2,2.0)]", g.incidentEdges(v).toString());
         assertEquals(false, g.addEdge(v, u, 2));
         assertEquals(false, g.addEdge(f));
     }
@@ -123,5 +126,26 @@ public class WGraphTest {
         g.addEdge(f);
         assertEquals("[(0,1,1.0), (0,2,1.0)]", g.allEdges().toString());
         assertEquals(2, g.numEdges());
+    }
+    
+    @Test
+    public void testDeleteEdge() {
+        g.addVertex(v);
+        g.addVertex(u);
+        g.addVertex(x);
+        g.addVertex(y);
+        g.addEdge(e);
+        assertEquals("[(0,1,1.0)]", g.allEdges().toString());
+        assertEquals(1, g.numEdges());
+        assertEquals(true, g.areAdjacent(v, u));
+        g.addEdge(f);
+        assertEquals("[(0,1,1.0), (0,2,1.0)]", g.allEdges().toString());
+        assertEquals(2, g.numEdges());
+        assertEquals(4, g.numVerts());
+        g.deleteEdge(v, u);
+        assertEquals(1, g.numEdges());
+        assertEquals(4, g.numVerts());
+        assertEquals("[(0,2,1.0)]", g.allEdges().toString());
+        assertEquals(false, g.areAdjacent(v, u));
     }
 }
