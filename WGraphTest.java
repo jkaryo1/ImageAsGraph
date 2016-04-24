@@ -129,6 +129,37 @@ public class WGraphTest {
     }
     
     @Test
+    public void testAllVertices() {
+        assertEquals("[]", g.allVertices().toString());
+        g.addVertex(v);
+        assertEquals("[0]", g.allVertices().toString());
+        g.addVertex(u);
+        assertEquals("[0, 1]", g.allVertices().toString());
+        g.addVertex(x);
+        assertEquals("[0, 1, 2]", g.allVertices().toString());
+        g.addVertex(y);
+        assertEquals("[0, 1, 2, 3]", g.allVertices().toString());
+    }
+    
+    @Test
+    public void testDepthFirst() {
+        g.addVertex(v);
+        assertEquals("[0]", g.depthFirst(v).toString());
+        g.addVertex(u);
+        assertEquals("[0]", g.depthFirst(v).toString());
+        assertEquals("[1]", g.depthFirst(u).toString());
+        g.addVertex(x);
+        g.addVertex(y);
+        g.addEdge(e);
+        assertEquals("[0, 1]", g.depthFirst(v).toString());
+        assertEquals("[1, 0]", g.depthFirst(u).toString());
+        g.addEdge(f);
+        // if degree > 1, opposite order of neighbors()
+        assertEquals("[0, 2, 1]", g.depthFirst(v).toString());
+        assertEquals("[1, 0, 2]", g.depthFirst(u).toString());
+    }
+    
+    @Test
     public void testDeleteEdge() {
         g.addVertex(v);
         g.addVertex(u);
