@@ -77,7 +77,8 @@ public class WEdge<VT> implements Comparable<WEdge<VT>> {
     public boolean equals(Object other) {
         if (other instanceof WEdge<?>) {
             WEdge<VT> e = (WEdge<VT>) other;
-            return this.source.equals(e.source) && this.end.equals(e.end);
+            return (this.source.equals(e.source) && this.end.equals(e.end))
+                    || (this.source.equals(e.end) && this.end.equals(e.source));
         }
         return false;
     }
