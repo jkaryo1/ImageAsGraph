@@ -22,7 +22,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
      * Adjacency/Incidence Hashmap.
      * Stores a vertex and list of incident edges.
      */
-    private HashMap<GVertex<VT>, ArrayList<WEdge<VT>>> map;
+    private HashMap<GVertex<VT>, LinkedList<WEdge<VT>>> map;
     
     /**
      * Constructor for WGraphP4.
@@ -30,7 +30,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public WGraphP4() {
         this.nextID = 0;
         this.numEdges = 0;
-        this.map = new HashMap<GVertex<VT>, ArrayList<WEdge<VT>>>();
+        this.map = new HashMap<GVertex<VT>, LinkedList<WEdge<VT>>>();
     }
 
     @Override
@@ -50,14 +50,14 @@ public class WGraphP4<VT> implements WGraph<VT> {
     
     @Override
     public boolean addVertex(VT d) {
-        ArrayList<WEdge<VT>> list = new ArrayList<WEdge<VT>>();
+        LinkedList<WEdge<VT>> list = new LinkedList<WEdge<VT>>();
         this.map.put(new GVertex<VT>(d, this.nextID++), list);
         return true;
     }
 
     @Override
     public boolean addVertex(GVertex<VT> v) {
-        ArrayList<WEdge<VT>> list = new ArrayList<WEdge<VT>>();
+        LinkedList<WEdge<VT>> list = new LinkedList<WEdge<VT>>();
         if (this.map.containsKey(v)) { // already in our map
             return false;
         } else {
@@ -174,15 +174,15 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<WEdge<VT>> allEdges() {
-        ArrayList<WEdge<VT>> edges = new ArrayList<WEdge<VT>>();
-        for (ArrayList<WEdge<VT>> element : this.map.values()) {
+        LinkedList<WEdge<VT>> edges = new LinkedList<WEdge<VT>>();
+        for (LinkedList<WEdge<VT>> element : this.map.values()) {
             for (WEdge<VT> edge : element) {
                 edges.add(edge);
             }
         }
         return edges;
     }
-
+//Haven't changed lists past here
     @Override
     public List<GVertex<VT>> allVertices() {
         ArrayList<GVertex<VT>> verts = new ArrayList<GVertex<VT>>();
