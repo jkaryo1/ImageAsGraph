@@ -177,7 +177,9 @@ public class WGraphP4<VT> implements WGraph<VT> {
         LinkedList<WEdge<VT>> edges = new LinkedList<WEdge<VT>>();
         for (LinkedList<WEdge<VT>> element : this.map.values()) {
             for (WEdge<VT> edge : element) {
-                edges.add(edge);
+                if (!edges.contains(edge)) {
+                    edges.add(edge);
+                }
             }
         }
         return edges;

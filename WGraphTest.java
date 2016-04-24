@@ -108,4 +108,20 @@ public class WGraphTest {
         assertEquals("[0]", g.neighbors(x).toString());
         assertEquals("[]", g.neighbors(y).toString());
     }
+    
+    @Test
+    public void testAllEdges() {
+        assertEquals("[]", g.allEdges().toString());
+        assertEquals(0, g.numEdges());
+        g.addVertex(v);
+        g.addVertex(u);
+        assertEquals("[]", g.allEdges().toString());
+        assertEquals(0, g.numEdges());
+        g.addEdge(e);
+        assertEquals("[(0,1,1.0)]", g.allEdges().toString());
+        assertEquals(1, g.numEdges());
+        g.addEdge(f);
+        assertEquals("[(0,1,1.0), (0,2,1.0)]", g.allEdges().toString());
+        assertEquals(2, g.numEdges());
+    }
 }
