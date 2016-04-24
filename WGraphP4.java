@@ -90,8 +90,28 @@ public class WGraphP4<VT> implements WGraph<VT> {
         }
         // put the edge in, if not already there
         if (!this.map.get(v).contains(edge)) {
-            this.map.get(v).add(edge);
-            this.map.get(u).add(edgeR);
+            boolean added = false;
+            for (int i = 0; i < this.map.get(v).size(); i++) {
+                if (edge.compareTo(this.map.get(v).get(i)) < 0) {
+                    this.map.get(v).add(i, edge);
+                    added = true;
+                    break;
+                }
+            }
+            if (!added) {
+                this.map.get(v).add(edge);
+            }
+            added = false;
+            for (int i = 0; i < this.map.get(u).size(); i++) {
+                if (edge.compareTo(this.map.get(u).get(i)) < 0) {
+                    this.map.get(u).add(i, edgeR);
+                    added = true;
+                    break;
+                }
+            }
+            if (!added) {
+                this.map.get(u).add(edgeR);
+            }
             this.numEdges++;
             return true;
         }
