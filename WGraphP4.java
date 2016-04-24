@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,6 +79,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
         WEdge<VT> edge = new WEdge<VT>(v, u, weight);
         WEdge<VT> edgeR = new WEdge<VT>(u, v, weight);
  
+        // put the vertexes in
         boolean success = true;
         if (!this.map.containsKey(v)) {
             success = this.addVertex(v);
@@ -88,34 +90,22 @@ public class WGraphP4<VT> implements WGraph<VT> {
         if (!success) {
             return false;
         }
+        
         // put the edge in, if not already there
-        if (!this.map.get(v).contains(edge)) {
-            boolean added = false;
-            for (int i = 0; i < this.map.get(v).size(); i++) {
-                if (edge.compareTo(this.map.get(v).get(i)) < 0) {
-                    this.map.get(v).add(i, edge);
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                this.map.get(v).add(edge);
-            }
-            added = false;
-            for (int i = 0; i < this.map.get(u).size(); i++) {
-                if (edge.compareTo(this.map.get(u).get(i)) < 0) {
-                    this.map.get(u).add(i, edgeR);
-                    added = true;
-                    break;
-                }
-            }
-            if (!added) {
-                this.map.get(u).add(edgeR);
-            }
-            this.numEdges++;
-            return true;
+        if (this.map.get(v).contains(edge)) {
+            return false;
         }
-        return false; 
+        boolean added;
+        added = this.map.get(v).add(edge);
+        Collections.sort(this.map.get(v));
+        if (added) {
+            added = this.map.get(u).add(edgeR);
+            Collections.sort(this.map.get(v));
+        }
+        if (added) {
+            this.numEdges++;
+        }
+        return added;
     }
 
     @Override
