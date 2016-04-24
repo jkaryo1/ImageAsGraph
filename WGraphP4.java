@@ -182,10 +182,10 @@ public class WGraphP4<VT> implements WGraph<VT> {
         }
         return edges;
     }
-//Haven't changed lists past here
+
     @Override
     public List<GVertex<VT>> allVertices() {
-        ArrayList<GVertex<VT>> verts = new ArrayList<GVertex<VT>>();
+        LinkedList<GVertex<VT>> verts = new LinkedList<GVertex<VT>>();
         for (GVertex<VT> vertex : this.map.keySet()) {
             verts.add(vertex);
         }
@@ -194,7 +194,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<GVertex<VT>> depthFirst(GVertex<VT> v) {
-        ArrayList<GVertex<VT>> reaches = new ArrayList<GVertex<VT>>();
+        LinkedList<GVertex<VT>> reaches = new LinkedList<GVertex<VT>>();
         // using LinkedList<Vertex> as a Stack
         LinkedList<GVertex<VT>> stack = new LinkedList<GVertex<VT>>();
         boolean[] visited = new boolean[this.numVerts()];  // inits to false
