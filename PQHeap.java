@@ -130,7 +130,7 @@ public class PQHeap<T extends Comparable<? super T>> implements
     	while (left <= this.size) {
     		int side;
     		if (right <= this.size) {
-    			side = this.comp.compare(this.heap.get(left)), this.heap.get(right));
+    			side = this.comp.compare(this.heap.get(left), this.heap.get(right));
     		} else {
     			side = -1;
     		}
