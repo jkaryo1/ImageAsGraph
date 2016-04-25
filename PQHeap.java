@@ -117,6 +117,7 @@ public class PQHeap<T extends Comparable<? super T>> implements
         T temp = this.heap.get(1);
         this.heap.set(1, this.heap.get(this.size));
         this.siftdown(1);
+        this.size--;
         return temp;
     }
     
@@ -137,7 +138,10 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     @Override
     public T peek() throws QueueEmptyException {
-        return null;
+        if (this.size == 0) {
+        	throw new QueueEmptyException();
+        }
+        return this.heap.get(1);
     }
 
     @Override
