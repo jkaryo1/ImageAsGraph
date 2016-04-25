@@ -126,13 +126,24 @@ public class PQHeap<T extends Comparable<? super T>> implements
      */
     public void siftdown(int pos) {
     	int left = this.getLeft(pos);
-    	while (left < this.size && this.comp.compare(this.heap.get(pos), this.heap.get(left)) > 0) {
+    	int right = this.getRight(pos);
+    	while (left <= this.size) {
+    		int side;
+    		if (right <= this.size) {
+    			side = this.comp.compare(this.heap.get(left)), this.heap.get(right));
+    		} else {
+    			side = -1;
+    		}
     		T temp = this.heap.get(pos);
-    		this.heap.set(pos, this.heap.get(left));
-    		this.heap.set(left, temp);
-    		this.siftdown(left);
-    		pos = left;
-    		left = this.getLeft(left);
+    		int insLoc = left;
+    		if (side >= 0) {
+    			insLoc = right;
+    		}
+    		this.heap.set(pos, this.heap.get(insLoc));
+    		this.heap.set(insLoc, temp);
+    		pos = insLoc;
+    		left = this.getLeft(pos);
+    		right = this.getRight(pos);
     	}
     }
 
