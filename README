@@ -9,9 +9,13 @@ Part I - Graph Implementation
 Part 1 was relatively easy as all we had to do was 
 slightly alter the GraphAdjMatrix.java implementation
 and make it use an  adjacency/incidence list. We chose 
-to use a hashmap list that holds a vertex and an ArrayList
-of Edges incident to the vertex. We all worked and tested 
-each others' code so it is hard to say who exactly did what.
+to use a hashmap list that holds a vertex and a Linked List
+of Edges incident to the vertex that are inserted in order. 
+We originally used a linked list to store our incident edges,
+but thought that a linked list would be more efficient, 
+especially so because we chose to store our edges ordered.
+We all worked and tested each others' code so it is hard 
+to say who exactly did what.
 
 --------------------------------------------//
 
