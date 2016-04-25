@@ -11,7 +11,7 @@ slightly alter the GraphAdjMatrix.java implementation
 and make it use an  adjacency/incidence list. We chose 
 to use a hashmap list that holds a vertex and a Linked List
 of Edges incident to the vertex that are inserted in order. 
-We originally used a linked list to store our incident edges,
+We originally used an array list to store our incident edges,
 but thought that a linked list would be more efficient, 
 especially so because we chose to store our edges ordered.
 We all worked and tested each others' code so it is hard 
