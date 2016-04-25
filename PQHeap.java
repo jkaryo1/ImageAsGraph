@@ -174,5 +174,12 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     @Override
     public void init(Collection<T> values) {
+    	for (T val : values) {
+    		this.heap.add(val);
+    	}
+    	this.size = this.heap.size();
+    	for (int i = this.size / 2 + 1; i > 0; i--) {
+    		this.siftdown(i);
+    	}
     }
 }
