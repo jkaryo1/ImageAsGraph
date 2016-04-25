@@ -4,7 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.Dimension;
 
-/** Set of Junit tests for our WGraph implementations.
+/** 
+ * Set of Junit tests for our WGraph implementations.
+ * @author Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer
+ * jkaryo1, cknowlt3, dfeldma9, dfisch11
+ * P4
+ * 600.226
  */
 public class WGraphTest {
     WGraph<Character> g;
