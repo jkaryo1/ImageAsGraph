@@ -156,6 +156,9 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     @Override
     public void clear() {
+    	this.size = 0;
+    	this.heap = new ArrayList<T>();
+    	this.heap.add(null);
     }
 
     @Override
