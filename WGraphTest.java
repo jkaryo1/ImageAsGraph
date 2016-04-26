@@ -187,10 +187,11 @@ public class WGraphTest {
     
     @Test
     public void testKruskals() {
-        GVertex<Character> a = new GVertex<>('v' , g.nextID());
-        GVertex<Character> b = new GVertex<>('v' , g.nextID());
-        GVertex<Character> c = new GVertex<>('v' , g.nextID());
-        GVertex<Character> d = new GVertex<>('v' , g.nextID());
+        GVertex<Character> a = new GVertex<>('a' , g.nextID());
+        GVertex<Character> b = new GVertex<>('b' , g.nextID());
+        GVertex<Character> c = new GVertex<>('c' , g.nextID());
+        GVertex<Character> d = new GVertex<>('d' , g.nextID());
+        GVertex<Character> e = new GVertex<>('e' , g.nextID());
         g.addVertex(v);
         g.addVertex(u);
         g.addVertex(x);
@@ -199,6 +200,7 @@ public class WGraphTest {
         g.addVertex(b);
         g.addVertex(c);
         g.addVertex(d);
+        g.addVertex(e); // Singleton vertex
         g.addEdge(new WEdge<>(v, u, 1));
         g.addEdge(new WEdge<>(u, x, 2));
         g.addEdge(new WEdge<>(u, y, 4));
@@ -206,10 +208,22 @@ public class WGraphTest {
         g.addEdge(new WEdge<>(v, y, 4));
         g.addEdge(new WEdge<>(x, y, 3));
         g.addEdge(new WEdge<>(y, a, 7));
-        g.addEdge(new WEdge<>(b, a, 2));
+        g.addEdge(new WEdge<>(b, c, 2)); // Disconnected from other tree (5,6,2.0)
         g.addEdge(new WEdge<>(d, a, 6));
         g.addEdge(new WEdge<>(d, v, 1));
         g.addEdge(new WEdge<>(y, y, 1));
-        System.out.println(g.kruskals());
+        assertEquals("[(0,1,1.0), (0,2,1.0), (0,7,1.0), (5,6,2.0), (2,3,3.0), (4,7,6.0)]", g.kruskals().toString());
+        
+        WGraph<Character> empty = new WGraphP4<Character>();
+        assertEquals("[]", empty.kruskals().toString()); //test empty
+        empty.addVertex(v);
+        empty.addVertex(u);
+        empty.addVertex(y);
+        empty.addVertex(a);
+        empty.addVertex(b);
+        empty.addVertex(c);
+        empty.addVertex(d);
+        empty.addVertex(e);
+        assertEquals("[]", empty.kruskals().toString()); //test all singleton vertices
     }
 }
