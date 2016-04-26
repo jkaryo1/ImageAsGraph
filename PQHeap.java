@@ -39,7 +39,6 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     /**
      * Initialize the priority queue heap.
-     * @param h the heap.
      */
     public PQHeap() {
         this.heap = new ArrayList<T>();
@@ -61,59 +60,66 @@ public class PQHeap<T extends Comparable<? super T>> implements
     
     /**Gets index of the right child.
      * @param pos position
+     * @return right index
      */
     public int getRight(int pos) {
-    	int right = 2 * pos + 1;
-    	if (right > this.size) {
-    		return -1;
-    	}
-    	return right;
+        int right = 2 * pos + 1;
+        if (right > this.size) {
+            return -1;
+        }
+        return right;
     }
     
     /**Gets index of the left child.
      * @param pos position
+     * @return left index
      */
     public int getLeft(int pos) {
-    	int left = 2 * pos;
-    	if (left > this.size) {
-    		return -1;
-    	}
-    	return left;
+        int left = 2 * pos;
+        if (left > this.size) {
+            return -1;
+        }
+        return left;
     }
     
     /**Gets index of parent.
      * @param pos position
+     * @return parent index
      */
     public int getParent(int pos) {
-    	if (pos == 1) {
-    		return -1;
-    	}
-    	return pos / 2;
+        if (pos == 1) {
+            return -1;
+        }
+        return pos / 2;
     }
 
     @Override
     public void insert(T t) {
-    	this.size++;
-    	int pos = this.size;
-    	this.heap.add(t);
-    	int par = this.getParent(pos);
-    	while ((par > 0) && this.comp.compare(t, this.heap.get(par)) < 0) {
-    		T temp = this.heap.get(par);
-    		this.heap.set(par, t);
-    		this.heap.set(pos, temp);
-    		pos = par;
-    		par = this.getParent(pos);
-    	}
+        this.size++;
+        int pos = this.size;
+        this.heap.add(t);
+        int par = this.getParent(pos);
+        while ((par > 0) && this.comp.compare(t, this.heap.get(par)) < 0) {
+            T temp = this.heap.get(par);
+            this.heap.set(par, t);
+            this.heap.set(pos, temp);
+            pos = par;
+            par = this.getParent(pos);
+        }
     }
 
     @Override
     public T remove() throws QueueEmptyException {
         if (this.size == 0) {
-        	throw new QueueEmptyException();
+            throw new QueueEmptyException();
         }
         if (this.size == 1) {
+<<<<<<< HEAD
         	this.size--;
         	return this.heap.remove(1);
+=======
+            return this.heap.remove(1);
+>>>>>>> branch 'master' of https://bitbucket.org/dsbeta/worksheet
         }
         T temp = this.heap.get(1);
         this.heap.set(1, this.heap.get(this.size));
@@ -126,6 +132,7 @@ public class PQHeap<T extends Comparable<? super T>> implements
      * @param pos position
      */
     public void siftdown(int pos) {
+<<<<<<< HEAD
     	int left = this.getLeft(pos);
     	int right = this.getRight(pos);
     	while (left <= this.size) {
@@ -148,12 +155,35 @@ public class PQHeap<T extends Comparable<? super T>> implements
     		System.out.println("sd");
     	}
     	System.out.println("exit");
+=======
+        int left = this.getLeft(pos);
+        int right = this.getRight(pos);
+        while (left <= this.size) {
+            int side;
+            if (right <= this.size) {
+                side = this.comp.compare(this.heap.get(left), 
+                        this.heap.get(right));
+            } else {
+                side = -1;
+            }
+            T temp = this.heap.get(pos);
+            int insLoc = left;
+            if (side >= 0) {
+                insLoc = right;
+            }
+            this.heap.set(pos, this.heap.get(insLoc));
+            this.heap.set(insLoc, temp);
+            pos = insLoc;
+            left = this.getLeft(pos);
+            right = this.getRight(pos);
+        }
+>>>>>>> branch 'master' of https://bitbucket.org/dsbeta/worksheet
     }
 
     @Override
     public T peek() throws QueueEmptyException {
         if (this.size == 0) {
-        	throw new QueueEmptyException();
+            throw new QueueEmptyException();
         }
         return this.heap.get(1);
     }
@@ -170,13 +200,14 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     @Override
     public void clear() {
-    	this.size = 0;
-    	this.heap = new ArrayList<T>();
-    	this.heap.add(null);
+        this.size = 0;
+        this.heap = new ArrayList<T>();
+        this.heap.add(null);
     }
 
     @Override
     public void init(Collection<T> values) {
+<<<<<<< HEAD
     	for (T val : values) {
     		this.heap.add(val);
     	}
@@ -186,6 +217,15 @@ public class PQHeap<T extends Comparable<? super T>> implements
     		this.siftdown(i);
     		System.out.println("s");
     	}
+=======
+        for (T val : values) {
+            this.heap.add(val);
+        }
+        this.size = this.heap.size();
+        for (int i = this.size / 2 + 1; i > 0; i--) {
+            this.siftdown(i);
+        }
+>>>>>>> branch 'master' of https://bitbucket.org/dsbeta/worksheet
     }
     
     /**ToString.*/
