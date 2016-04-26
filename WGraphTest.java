@@ -187,16 +187,29 @@ public class WGraphTest {
     
     @Test
     public void testKruskals() {
+        GVertex<Character> a = new GVertex<>('v' , g.nextID());
+        GVertex<Character> b = new GVertex<>('v' , g.nextID());
+        GVertex<Character> c = new GVertex<>('v' , g.nextID());
+        GVertex<Character> d = new GVertex<>('v' , g.nextID());
         g.addVertex(v);
         g.addVertex(u);
         g.addVertex(x);
         g.addVertex(y);
+        g.addVertex(a);
+        g.addVertex(b);
+        g.addVertex(c);
+        g.addVertex(d);
         g.addEdge(new WEdge<>(v, u, 1));
         g.addEdge(new WEdge<>(u, x, 2));
         g.addEdge(new WEdge<>(u, y, 4));
         g.addEdge(new WEdge<>(v, x, 1));
         g.addEdge(new WEdge<>(v, y, 4));
         g.addEdge(new WEdge<>(x, y, 3));
+        g.addEdge(new WEdge<>(y, a, 7));
+        g.addEdge(new WEdge<>(b, a, 2));
+        g.addEdge(new WEdge<>(d, a, 6));
+        g.addEdge(new WEdge<>(d, v, 1));
+        g.addEdge(new WEdge<>(y, y, 1));
         System.out.println(g.kruskals());
     }
 }

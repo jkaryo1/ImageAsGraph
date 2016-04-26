@@ -78,6 +78,10 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public boolean addEdge(GVertex<VT> v, GVertex<VT> u, double weight) {
         WEdge<VT> edge = new WEdge<VT>(v, u, weight);
         WEdge<VT> edgeR = new WEdge<VT>(u, v, weight);
+        
+        if (u.equals(v)) {
+            return false;
+        }
  
         // put the vertexes in
         boolean success = true;
