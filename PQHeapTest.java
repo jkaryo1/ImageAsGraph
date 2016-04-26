@@ -18,33 +18,35 @@ public class PQHeapTest {
     public void initialize() {
     	comp = new MaxComparator<Integer>();
     	/* To test empty heap. */
-        empty = new PQHeap<Integer>(comp);
+        empty = new PQHeap<Integer>();
 
         /* More than 1 to make sure heap order is maintained regardless
          * of what order the heap is built in, and tests when repeated
          * priority values are present. */
-        smalltolarge = new PQHeap<Integer>(comp);
-        largetosmall = new PQHeap<Integer>(comp);
-        allsame = new PQHeap<Integer>(comp);
-        randomgen = new PQHeap<Integer>(comp);
-        differentsizes = new PQHeap[100];
+        smalltolarge = new PQHeap<Integer>();
+        largetosmall = new PQHeap<Integer>();
+        allsame = new PQHeap<Integer>();
+        randomgen = new PQHeap<Integer>();
+        differentsizes = new PQHeap[20];
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             smalltolarge.insert((Integer) i);
-            largetosmall.insert((Integer) (99 - i));
-            allsame.insert((Integer) 1);
+            largetosmall.insert((Integer) (19 - i));
+            allsame.insert((Integer) 0);
         }
 
-        int random = 99;
-        for (int i = 0; i < 100; i++) {
-        	randomgen.insert((Integer) random);
-        	// Ensures repeats and that 99 is the largest value
-        	random = (Integer)(int)(Math.random() * 50 + 1);
+        int randZero = (int)(Math.random() * 20);
+        for (int i = 0; i < 20; i++) {
+            if (i == randZero) {
+                randomgen.insert((Integer) 0);
+            } else {
+                randomgen.insert((Integer)(int)(Math.random() * 20));
+            }
         }
 
         for (int i = 0; i < differentsizes.length; i++) {
-        	differentsizes[i] = new PQHeap<Integer>(comp);
-        	for (int j = 0; j <= i; j++) {
+        	differentsizes[i] = new PQHeap<Integer>();
+        	for (int j = 0; j < i; j++) {
         		differentsizes[i].insert((Integer) j);
         	}
         }
@@ -60,16 +62,16 @@ public class PQHeapTest {
     @Test
     public void testSizeNonEmpty() {
     	// Correct size regardless of how heap is built
-    	assertTrue("PQ not the correct size", smalltolarge.size() == 100);
-    	assertTrue("PQ not the correct size", largetosmall.size() == 100);
+    	assertEquals("PQ not the correct size", 20, smalltolarge.size());
+    	assertEquals("PQ not the correct size", 20, largetosmall.size());
 
     	// Correct size regardless of presence of equal priorities
-    	assertTrue("PQ not the correct size", allsame.size() == 100);
-    	assertTrue("PQ not the correct size", randomgen.size() == 100);
+    	assertEquals("PQ not the correct size", 20, allsame.size());
+    	assertEquals("PQ not the correct size", 20, randomgen.size());
 
-    	// Check all sizes 0 - 99, covers cases where heap is different # of levels
+    	// Check all sizes 0 - 19, covers cases where heap is different # of levels
     	for (int i = 0; i < differentsizes.length; i++) {
-    		assertTrue(differentsizes[i].size() == i);
+    		assertEquals(differentsizes[i].size(), i);
     	}
     }
     /* Test isEmpty() on empty PQ */
@@ -89,7 +91,8 @@ public class PQHeapTest {
     	assertTrue("isEmpty() return empty when is non-empty", !randomgen.isEmpty());
 
     	// Checks all sizes of PQ 1 - 99, size 1 is boundary condition
-    	for (int i = 0; i < differentsizes.length; i++) {
+    	assertTrue("Empty array is not empty", differentsizes[0].isEmpty());
+    	for (int i = 1; i < differentsizes.length; i++) {
     		assertTrue("isEmpty() returns empty when PQ is not empty", !differentsizes[i].isEmpty());
     	}
     }
@@ -106,25 +109,25 @@ public class PQHeapTest {
     @Test
     public void testClearNonEmpty() {
     	smalltolarge.clear();
-    	assertTrue("Size not updated correctly on clear()", smalltolarge.size() == 0);
+    	assertEquals("Size not updated correctly on clear()", 0, smalltolarge.size());
 		assertTrue("PQ is not empty after clear()", smalltolarge.isEmpty());
 
     	largetosmall.clear();
-    	assertTrue("Size not updated correctly on clear()", largetosmall.size() == 0);
+    	assertEquals("Size not updated correctly on clear()", 0, largetosmall.size());
 		assertTrue("PQ is not empty after clear()", largetosmall.isEmpty());
 
     	allsame.clear();
-    	assertTrue("Size not updated correctly on clear()", allsame.size() == 0);
+    	assertEquals("Size not updated correctly on clear()", 0, allsame.size());
 		assertTrue("PQ is not empty after clear()", allsame.isEmpty());
 
     	randomgen.clear();
-    	assertTrue("Size not updated correctly on clear()", randomgen.size() == 0);
+    	assertEquals("Size not updated correctly on clear()", 0, randomgen.size());
 		assertTrue("PQ is not empty after clear()", randomgen.isEmpty());
 
 		// Checks clear on a range of different sized PQs, size 1 is boundary condition
 		for (int i = 0; i < differentsizes.length; i++) {
 	    	differentsizes[i].clear();
-	    	assertTrue("Size not updated correctly on clear()", differentsizes[i].size() == 0);
+	    	assertEquals("Size not updated correctly on clear()", 0, differentsizes[i].size());
 			assertTrue("PQ is not empty after clear()", differentsizes[i].isEmpty());			
 		}
     }
@@ -145,22 +148,28 @@ public class PQHeapTest {
     /* Test peek() on non-empty MaxPQ */
     @Test
     public void testPeekNonEmpty() {
-    	assertTrue("Max element is incorrect for heap built from small to large values",
-    					smalltolarge.peek() == (Integer) 99);
-    	assertTrue("Max element is incorrect for heap built from large to small values",
-    					largetosmall.peek() == (Integer) 99);
-    	assertTrue("Max element is incorrect for heap built with all identical values",
-    					allsame.peek() == (Integer) 99);
-    	assertTrue("Max element is incorrect for heap built with largest value put in first",
-    					randomgen.peek() == (Integer) 99);
+    	assertEquals("Best element is incorrect for heap built from small to large values",
+    	    (Integer) 0,smalltolarge.peek());
+    	assertEquals("Best element is incorrect for heap built from large to small values",
+    		(Integer) 0, largetosmall.peek());
+    	assertEquals("Best element is incorrect for heap built with all identical values",
+    		(Integer) 0, allsame.peek());
+    	assertEquals("Best element is incorrect for heap built with largest value put in first",
+    		(Integer) 0, randomgen.peek());
     	// Insert another value on random to check largest-inserted-last condition
-    	randomgen.insert((Integer) 100); 
-    	assertTrue("Max element is incorrect for heap built with largest value put in last",
-    					randomgen.peek() == (Integer) 100);
+    	randomgen.insert((Integer) (-1)); 
+    	assertEquals("Best element is incorrect for heap built with largest value put in last",
+    	    (Integer) (-1), randomgen.peek());
 
     	// Now check that the max value is true over a range of values
     	for (int i = 0; i < differentsizes.length; i++) {
-    		assertTrue("Max element was incorrect when values vary.", differentsizes[i].peek() == (Integer) i);
+    	    Integer j;
+    	    try {
+    	        j = differentsizes[i].peek();
+    	        assertEquals("Best element was incorrect when values vary.", 0, (int) j);
+    	    } catch (QueueEmptyException q) {
+    	        assertEquals("QueueEmptyException thrown at wrong place", 0, i);
+    	    }
     	}
     }
 
@@ -188,12 +197,12 @@ public class PQHeapTest {
     	// but still requires us to use size() to check that the size is as expected.
     	// Tests the range of values up to but not including empty PQ
     	Integer removed = smalltolarge.remove();
-    	assertTrue("Remove didn't return correct value.", removed == (99));
-		assertTrue("Remove didn't update size.", smalltolarge.size() == (99));
+    	assertEquals("Remove didn't return correct value.", 0, (int) removed);
+		assertEquals("Remove didn't update size.", 19, smalltolarge.size());
     	while(!smalltolarge.isEmpty()) {
-    		removed--;
-    		assertTrue("Remove didn't return correct value.", smalltolarge.remove() == (removed));
-    		assertTrue("Remove didn't update size.", smalltolarge.size() == (removed));
+    		removed++;
+    		assertEquals("Remove didn't return correct value.", removed, smalltolarge.remove());
+    		assertEquals("Remove didn't update size.", 19 - (int) removed, smalltolarge.size());
     	}
     }
 
@@ -205,33 +214,33 @@ public class PQHeapTest {
     	// but still requires us to use size() to check that the size is as expected.
     	// Tests the range of values up to but not including empty PQ
     	Integer removed = largetosmall.remove();
-    	assertTrue("Remove didn't return correct value.", removed == (99));
-		assertTrue("Remove didn't update size.", largetosmall.size() == (99));
+    	assertEquals("Remove didn't return correct value.", 0, (int) removed);
+		assertEquals("Remove didn't update size.", 19, largetosmall.size());
     	while(!largetosmall.isEmpty()) {
-    		removed--;
-    		assertTrue("Remove didn't return correct value.", largetosmall.remove() == (removed));
-    		assertTrue("Remove didn't update size.", largetosmall.size() == (removed));
+    		removed++;
+    		assertEquals("Remove didn't return correct value.", removed, largetosmall.remove());
+    		assertEquals("Remove didn't update size.", 19 - (int) removed, largetosmall.size());
     	}
     }
 
     @Test
     public void removeAllSame() {
-    	int size = 100;
+    	int size = 20;
     	while(!allsame.isEmpty()) {
     		size--;
-    		assertTrue("Remove didn't return correct value.", allsame.remove() == (1));
-    		assertTrue("Remove didn't update size.", largetosmall.size() == (size));
+    		assertEquals("Remove didn't return correct value.", (Integer) 0, allsame.remove());
+    		assertEquals("Remove didn't update size.", size, allsame.size());
     	}
     }
 
     @Test
-    public void removeRemovesSameAspeek() {
+    public void removeRemovesSameAsPeek() {
     	// Removes from the random list. This test is quite interdependent.
     	int random, removed;
     	while(!randomgen.isEmpty()) {
     		random = randomgen.peek();
 	    	removed = randomgen.remove();
-	    	assertTrue("The value returned by removeMax() was not the same as that returned by peek()",
+	    	assertTrue("The value returned by remove() was not the same as that returned by peek()",
 	    					random == (removed));	
     	}
     }
@@ -239,15 +248,15 @@ public class PQHeapTest {
     /* test insert from empty list */
     @Test
     public void testInsertEmpty() {
-    	empty.insert(1);
+    	empty.insert(0);
         assertFalse("Previously empty is still empty after insert", 
                 empty.isEmpty());
         assertEquals("Size does not update with insert of empty size", 
-                0, empty.size());
+                1, empty.size());
         try {
-            assertEquals("MaxVal not updated after insert on empty list", (Integer) 1, empty.peek());
+            assertEquals("Best element not updated after insert on empty list", (Integer) 0, empty.peek());
         } catch (QueueEmptyException q) {
-            fail("MaxVal was not updated and QueueEmptyException was thrown");
+            fail("Best element was not updated and QueueEmptyException was thrown");
         }
     }
 
@@ -255,64 +264,64 @@ public class PQHeapTest {
 
     /* Inserts values smaller than the max value */
     @Test
-    public void testInsertSmallerValsNonEmpty() {
+    public void testInsertBiggerValsNonEmpty() {
     	for (int i = 1; i <= 20; i++) {
-    		smalltolarge.insert(i - 11);
-    		largetosmall.insert(i - 11);
-    		randomgen.insert(i - 11);
+    		smalltolarge.insert(i + 20);
+    		largetosmall.insert(i + 20);
+    		randomgen.insert(i + 20);
 
     		// Check that size gets updated
-    		assertTrue("Size not updated on insert", smalltolarge.size() == (100 + i));
-    		assertTrue("Size not updated on insert", largetosmall.size() == (100 + i));
-    		assertTrue("Size not updated on insert", randomgen.size() == (100 + i));
+    		assertEquals("Size not updated on insert", 20 + i, smalltolarge.size());
+    		assertEquals("Size not updated on insert", 20 + i, largetosmall.size());
+    		assertEquals("Size not updated on insert", 20 + i, randomgen.size());
 
     		// Check that maxVal is unchanged
-    		assertTrue("MaxVal changed on insert of value < max", smalltolarge.peek() == (99));
-    		assertTrue("MaxVal changed on insert of value < max", largetosmall.peek() == (99));
-    		assertTrue("MaxVal changed on insert of value < max", randomgen.peek() == (99));
+    		assertEquals("Best element changed on insert of value > best element", (Integer) 0, smalltolarge.peek());
+    		assertEquals("Best element changed on insert of value > best element", (Integer) 0, largetosmall.peek());
+    		assertEquals("Best element changed on insert of value > best element", (Integer) 0, randomgen.peek());
 
     	}
     }
 
     /* Inserts values larger than/ equal to the max value */
     @Test
-    public void testInsertLargerValsNonEmpty() {
-    	for (int i = 1; i <= 11; i++) {
-    		smalltolarge.insert(i + 99);
-    		largetosmall.insert(i + 99);
-    		randomgen.insert(i + 99);
+    public void testInsertSmallerValsNonEmpty() {
+    	for (int i = 19; i <= 1; i++) {
+    		smalltolarge.insert(i - 20);
+    		largetosmall.insert(i - 20);
+    		randomgen.insert(i - 20);
 
     		// Check that size gets updated
-    		assertTrue("Size not updated on insert", smalltolarge.size() == (100 + i));
-    		assertTrue("Size not updated on insert", largetosmall.size() == (100 + i));
-    		assertTrue("Size not updated on insert", randomgen.size() == (100 + i));
+    		assertEquals("Size not updated on insert", 20 + i, smalltolarge.size());
+    		assertEquals("Size not updated on insert", 20 + i,largetosmall.size());
+    		assertEquals("Size not updated on insert", 20 + i, randomgen.size());
 
     		// Check that maxVal is correct
-    		assertTrue("MaxVal not updated when insert value >= max", smalltolarge.peek() == (99 + i));
-    		assertTrue("MaxVal not updated when insert value >= max", largetosmall.peek() == (99 + i));
-    		assertTrue("MaxVal not updated when insert value >= max", randomgen.peek() == (99 + i));
+    		assertEquals("Best element not updated when insert value < best element", (Integer)(i - 20), smalltolarge.peek());
+    		assertEquals("Best element not updated when insert value < best element", (Integer)(i - 20), largetosmall.peek());
+    		assertEquals("Best element not updated when insert value < best element", (Integer)(i - 20), randomgen.peek());
 
     	}
     }
 
     @Test
     public void testInertionOfDuplicates() {
-    	// Repeatedly insert 1's to allsame
+    	// Repeatedly insert 0's to allsame
     	for (int i = 1; i <= 11; i++) {
-    		allsame.insert(1);
-    		assertTrue("Size not updated when inserting duplicates", allsame.size() == (100 + i));
-    		assertTrue("MaxVal changed when inserting a duplicate value", allsame.peek() == 1);
+    		allsame.insert(0);
+    		assertEquals("Size not updated when inserting duplicates", 20 + i, allsame.size());
+    		assertEquals("Best element changed when inserting a duplicate value", (Integer) 0, allsame.peek());
     	}
 
     	//Repeatedly insert duplicate random values to randomgen
         int random;
-        for (int i = 1; i < 100; i++) {
-            // Ensures repeats and that 99 is the largest value
-        	random = (Integer)(int)(Math.random() * 50 + 1);
+        for (int i = 1; i < 20; i++) {
+            // Ensures repeats and that 19 is the largest value
+        	random = (Integer)(int)(Math.random() * 19);
         	randomgen.insert((Integer) random);
 
-    		assertTrue("Size not updated when inserting duplicates", allsame.size() == (100 + i));
-    		assertTrue("MaxVal changed when inserting submaximal duplicate value", allsame.peek() == 99);
+    		assertEquals("Size not updated when inserting duplicates", 20 + i, randomgen.size());
+    		assertEquals("Best element changed when inserting superminimal duplicate value", (Integer) 0, randomgen.peek());
         }
     }
     
@@ -322,31 +331,21 @@ public class PQHeapTest {
         List<Integer> order = Arrays.asList(10, 9, 9, 8, 6, 5, 3, 3, 2, 2, 1);
         List<Integer> smallBig = Arrays.asList(1, 2, 2, 3, 3, 5, 6, 8, 9, 9, 10);
         List<Integer> same = Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
-        System.out.println("Here");
         empty.init(list);
-        System.out.println(empty);
         smalltolarge.init(smallBig);
         largetosmall.init(order);
         allsame.init(same);
         assertTrue("Empty queue is still empty after init()", !empty.isEmpty());
         assertEquals("Size of queue does not match size of Collection in init()", 11, empty.size());
-        System.out.println(empty.peek());
-        assertEquals("MaxVal is incorrect after init to empty list", (Integer) 10, empty.peek());
+        assertEquals("Best element is incorrect after init to empty list", (Integer) 1, empty.peek());
         assertTrue("Non-empty queue is empty after init()", !smalltolarge.isEmpty());
         assertEquals("Size of queue does not match size of Collection in init()", 11, smalltolarge.size());
-        assertEquals("MaxVal is incorrect after init to non-empty list", (Integer) 10, smalltolarge.peek());
+        assertEquals("Best element is incorrect after init to non-empty list", (Integer) 1, smalltolarge.peek());
         assertTrue("Non-empty queue is empty after init()", !largetosmall.isEmpty());
         assertEquals("Size of queue does not match size of Collection in init()", 11, largetosmall.size());
-        assertEquals("MaxVal is incorrect after init to non-empty list", (Integer) 10, largetosmall.peek());
+        assertEquals("Best element is incorrect after init to non-empty list", (Integer) 1, largetosmall.peek());
         assertTrue("Non-empty queue is empty after init()", !allsame.isEmpty());
         assertEquals("Size of queue does not match size of Collection in init()", 11, allsame.size());
-        assertEquals("MaxVal is incorrect after init to non-empty list", (Integer) 10, allsame.peek());
-
-        for (int i = 0; i < 11; i++) {
-            assertEquals("Empty queue's init with random ordered values does not match up with expected values", order.get(i), empty.remove());
-            assertEquals("Queue with increasing values' init does not match up with expected values", order.get(i), smalltolarge.remove());
-            assertEquals("Queue with decreasing values' init does not match up with expected values", order.get(i), largetosmall.remove());
-            assertEquals("Queue with same values' init does not match up with expected values", order.get(i), allsame.remove());
-        }
+        assertEquals("Best eleemnt is incorrect after init to non-empty list", (Integer) 1, allsame.peek());
     }
 }

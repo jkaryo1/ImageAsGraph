@@ -118,9 +118,9 @@ public class PQHeap<T extends Comparable<? super T>> implements
         	return this.heap.remove(1);
         }
         T temp = this.heap.get(1);
-        this.heap.set(1, this.heap.get(this.size));
-        this.siftdown(1);
         this.size--;
+        this.heap.set(1, this.heap.remove(this.size + 1));
+        this.siftdown(1);
         return temp;
     }
     
@@ -130,9 +130,10 @@ public class PQHeap<T extends Comparable<? super T>> implements
     public void siftdown(int pos) {
     	int left = this.getLeft(pos);
     	int right = this.getRight(pos);
-    	while (left <= this.size) {
+    	while (left <= this.size && left > 0) {
+    	    System.out.println(this.heap);
     		int side;
-    		if (right <= this.size) {
+    		if (right <= this.size && right > 0) {
     			side = this.comp.compare(this.heap.get(left), this.heap.get(right));
     		} else {
     			side = -1;
@@ -142,14 +143,16 @@ public class PQHeap<T extends Comparable<? super T>> implements
     		if (side >= 0) {
     			insLoc = right;
     		}
-    		this.heap.set(pos, this.heap.get(insLoc));
-    		this.heap.set(insLoc, temp);
-    		pos = insLoc;
-    		left = this.getLeft(pos);
-    		right = this.getRight(pos);
-    		System.out.println("sd");
+    		if (this.comp.compare(this.heap.get(pos), this.heap.get(insLoc)) > 0) {
+        		this.heap.set(pos, this.heap.get(insLoc));
+        		this.heap.set(insLoc, temp);
+        		pos = insLoc;
+        		left = this.getLeft(pos);
+        		right = this.getRight(pos);
+    		} else {
+    		    break;
+    		}
     	}
-    	System.out.println("exit");
     }
 
     @Override
@@ -179,14 +182,13 @@ public class PQHeap<T extends Comparable<? super T>> implements
 
     @Override
     public void init(Collection<T> values) {
-    	for (T val : values) {
+        this.clear();
+        for (T val : values) {
     		this.heap.add(val);
     	}
-    	System.out.println("q");
-    	this.size = this.heap.size();
-    	for (int i = this.size / 2 + 1; i > 0; i--) {
+    	this.size = this.heap.size() - 1;
+    	for (int i = this.size / 2; i > 0; i--) {
     		this.siftdown(i);
-    		System.out.println("s");
     	}
     }
     
