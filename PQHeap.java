@@ -114,8 +114,8 @@ public class PQHeap<T extends Comparable<? super T>> implements
             throw new QueueEmptyException();
         }
         if (this.size == 1) {
-        	this.size--;
-        	return this.heap.remove(1);
+            this.size--;
+            return this.heap.remove(1);
         }
         T temp = this.heap.get(1);
         this.size--;
@@ -128,31 +128,32 @@ public class PQHeap<T extends Comparable<? super T>> implements
      * @param pos position
      */
     public void siftdown(int pos) {
-    	int left = this.getLeft(pos);
-    	int right = this.getRight(pos);
-    	while (left <= this.size && left > 0) {
-    	    System.out.println(this.heap);
-    		int side;
-    		if (right <= this.size && right > 0) {
-    			side = this.comp.compare(this.heap.get(left), this.heap.get(right));
-    		} else {
-    			side = -1;
-    		}
-    		T temp = this.heap.get(pos);
-    		int insLoc = left;
-    		if (side >= 0) {
-    			insLoc = right;
-    		}
-    		if (this.comp.compare(this.heap.get(pos), this.heap.get(insLoc)) > 0) {
-        		this.heap.set(pos, this.heap.get(insLoc));
-        		this.heap.set(insLoc, temp);
-        		pos = insLoc;
-        		left = this.getLeft(pos);
-        		right = this.getRight(pos);
-    		} else {
-    		    break;
-    		}
-    	}
+        int left = this.getLeft(pos);
+        int right = this.getRight(pos);
+        while (left <= this.size && left > 0) {
+            int side;
+            if (right <= this.size && right > 0) {
+                side = this.comp.compare(this.heap.get(left), 
+                        this.heap.get(right));
+            } else {
+                side = -1;
+            }
+            T temp = this.heap.get(pos);
+            int insLoc = left;
+            if (side >= 0) {
+                insLoc = right;
+            }
+            if (this.comp.compare(this.heap.get(pos), 
+                        this.heap.get(insLoc)) > 0) {
+                this.heap.set(pos, this.heap.get(insLoc));
+                this.heap.set(insLoc, temp);
+                pos = insLoc;
+                left = this.getLeft(pos);
+                right = this.getRight(pos);
+            } else {
+                break;
+            }
+        }
     }
 
     @Override
@@ -184,16 +185,18 @@ public class PQHeap<T extends Comparable<? super T>> implements
     public void init(Collection<T> values) {
         this.clear();
         for (T val : values) {
-    		this.heap.add(val);
-    	}
-    	this.size = this.heap.size() - 1;
-    	for (int i = this.size / 2; i > 0; i--) {
-    		this.siftdown(i);
-    	}
+            this.heap.add(val);
+        }
+        this.size = this.heap.size() - 1;
+        for (int i = this.size / 2; i > 0; i--) {
+            this.siftdown(i);
+        }
     }
     
-    /**ToString.*/
+    /**ToString.
+     * @return toString
+     * */
     public String toString() {
-    	return this.heap.toString();
+        return this.heap.toString();
     }
 }
