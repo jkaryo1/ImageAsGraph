@@ -228,11 +228,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
         int endID;
         boolean suc;
 
-        System.out.println(this.allEdges());
         queue.init(this.allEdges());
-        System.out.println(queue);
-
-        System.out.println(queue.size());
         
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();

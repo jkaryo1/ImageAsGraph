@@ -23,7 +23,14 @@ Part II - Minimally Weighted Spanning Trees
 
 --------------------------------------------//
 
-NOTES HERE
+Part 2 was not that difficult but much worse than part 1. We had
+a decent amount of trouble with our PQHeap and were banging our
+heads against the wall until we realized that our issue was not
+with our PQHeap but instead our PQHeapTest. Once we recreated our
+Junit test, we were able to push past our PQHeap issues. Also with
+Kruskal's, we had a little trouble completely understanding the
+use of the given Partition class, but once we were able to wrap
+our heads around it, Kruskal's became rather trivial. 
 
 --------------------------------------------//
 
