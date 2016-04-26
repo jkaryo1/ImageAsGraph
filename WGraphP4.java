@@ -220,8 +220,6 @@ public class WGraphP4<VT> implements WGraph<VT> {
         PriorityQueue<WEdge<VT>> queue = new PQHeap<WEdge<VT>>();
         Partition part = new Partition(this.numVerts());
         WEdge<VT> temp;
-        GVertex<VT> source;
-        GVertex<VT> end;
         int sourceID;
         int endID;
         boolean suc;
@@ -235,10 +233,8 @@ public class WGraphP4<VT> implements WGraph<VT> {
         for (int i = 0; i <= queue.size(); i++) { //no idea why '<='
             System.out.println("hi");
             temp = queue.remove();
-            source = temp.source();
-            end = temp.end();
-            sourceID = source.id();
-            endID = end.id();
+            sourceID = temp.source().id();
+            endID = temp.end().id();
             
             suc = part.union(endID, sourceID);
             
