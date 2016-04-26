@@ -230,8 +230,8 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
         System.out.println(queue.size());
         
-        for (int i = 0; i <= queue.size(); i++) { //no idea why '<='
-            System.out.println("hi");
+        for (int i = queue.size(); i > 0; i--) { //no idea why '<='
+            System.out.println(i + ":" + queue.size());
             temp = queue.remove();
             sourceID = temp.source().id();
             endID = temp.end().id();

@@ -195,7 +195,7 @@ public class WGraphTest {
         g.addEdge(new WEdge<>(u, x, 2));
         g.addEdge(new WEdge<>(u, y, 4));
         g.addEdge(new WEdge<>(v, x, 1));
-        g.addEdge(new WEdge<>(v, y, 2));
+        g.addEdge(new WEdge<>(v, y, 4));
         g.addEdge(new WEdge<>(x, y, 3));
         System.out.println(g.kruskals());
     }
