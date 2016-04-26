@@ -216,7 +216,36 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<WEdge<VT>> kruskals() {
-        // TODO Auto-generated method stub
-        return null;
+        List<WEdge<VT>> edges = new ArrayList<WEdge<VT>>();
+        PriorityQueue<WEdge<VT>> queue = new PQHeap<WEdge<VT>>();
+        Partition part = new Partition(this.numVerts());
+        WEdge<VT> temp;
+        GVertex<VT> source;
+        GVertex<VT> end;
+        int sourceID;
+        int endID;
+        boolean suc;
+
+        System.out.println(this.allEdges());
+        queue.init(this.allEdges());
+        System.out.println(queue);
+
+        System.out.println(queue.size());
+        
+        for (int i = 0; i <= queue.size(); i++) { //no idea why '<='
+            System.out.println("hi");
+            temp = queue.remove();
+            source = temp.source();
+            end = temp.end();
+            sourceID = source.id();
+            endID = end.id();
+            
+            suc = part.union(endID, sourceID);
+            
+            if (suc) {
+                edges.add(temp);
+            }
+        }
+        return edges;
     }
 }

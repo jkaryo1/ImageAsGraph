@@ -184,4 +184,19 @@ public class WGraphTest {
         assertEquals("[(0,2,1.0)]", g.allEdges().toString());
         assertEquals(false, g.areAdjacent(v, u));
     }
+    
+    @Test
+    public void testKruskals() {
+        g.addVertex(v);
+        g.addVertex(u);
+        g.addVertex(x);
+        g.addVertex(y);
+        g.addEdge(new WEdge<>(v, u, 1));
+        g.addEdge(new WEdge<>(u, x, 2));
+        g.addEdge(new WEdge<>(u, y, 4));
+        g.addEdge(new WEdge<>(v, x, 1));
+        g.addEdge(new WEdge<>(v, y, 2));
+        g.addEdge(new WEdge<>(x, y, 3));
+        System.out.println(g.kruskals());
+    }
 }
