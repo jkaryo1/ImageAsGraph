@@ -112,6 +112,7 @@ public class PQHeap<T extends Comparable<? super T>> implements
         	throw new QueueEmptyException();
         }
         if (this.size == 1) {
+        	this.size--;
         	return this.heap.remove(1);
         }
         T temp = this.heap.get(1);
@@ -144,7 +145,9 @@ public class PQHeap<T extends Comparable<? super T>> implements
     		pos = insLoc;
     		left = this.getLeft(pos);
     		right = this.getRight(pos);
+    		System.out.println("sd");
     	}
+    	System.out.println("exit");
     }
 
     @Override
@@ -177,9 +180,16 @@ public class PQHeap<T extends Comparable<? super T>> implements
     	for (T val : values) {
     		this.heap.add(val);
     	}
+    	System.out.println("q");
     	this.size = this.heap.size();
     	for (int i = this.size / 2 + 1; i > 0; i--) {
     		this.siftdown(i);
+    		System.out.println("s");
     	}
+    }
+    
+    /**ToString.*/
+    public String toString() {
+    	return this.heap.toString();
     }
 }
