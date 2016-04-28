@@ -74,10 +74,10 @@ public class P4C {
 
             // After you have a spanning tree connected component x, 
             // you can generate an output image like this:
-            //for (GVertex<Pixel> i: x)  {
-            //    Pixel d = i.data();
-            //    image.setRGB(d.col(), d.row(), d.value());
-            //}
+            for (GVertex<Pixel> i: g.kruskals())  {
+                Pixel d = i.data();
+                image.setRGB(d.col(), d.row(), d.value());
+            }
 
             File f = new File("output.png");
             ImageIO.write(image, "png", f);

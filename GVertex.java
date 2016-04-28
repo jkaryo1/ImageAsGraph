@@ -68,4 +68,12 @@ public class GVertex<T>
     public int compareTo(GVertex<T> other) {
         return this.num - other.num;
     }
+
+    /**
+     * get data method
+     * @return the data
+     */
+    public T data() {
+        return this.data;
+    }
 }
