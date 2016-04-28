@@ -8,7 +8,13 @@ import java.awt.Toolkit;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/**
+ * P4.
+ * @author Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer
+ * jkaryo1, cknowlt3, dfeldma9, dfisch11
+ * P4
+ * 600.226
+ */
 public class P4C {
 
 
@@ -19,7 +25,13 @@ public class P4C {
      *  @return the graph that was created
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
-        return null;
+        WGraph<Pixel> g = new WGraphP4<Pixel>();
+        for (int row = 0; row < image.getHeight(); row++) {
+            for (int p = 0; p < image.getWidth(); p++) {
+                Pixel pixel = new Pixel(row, p, image.getRGB(row, p));
+            }
+        }
+        return g;
     }
 
 
@@ -34,6 +46,10 @@ public class P4C {
         return null;
     }
 
+    /**
+     * the main function.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
 
         final int gray = 0x202020;
@@ -42,7 +58,7 @@ public class P4C {
           // the line that reads the image file
 
             BufferedImage image = ImageIO.read(new File(args[0]));
-            WGraph<Pixel> g = imageToGraph(image, new PixelDistance());
+            WGraph<Pixel> g = imageToGraph(image, new PixelDistance<Pixel>());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
 
             System.out.print("result =  " + res.size() + "\n");
@@ -58,10 +74,10 @@ public class P4C {
 
             // After you have a spanning tree connected component x, 
             // you can generate an output image like this:
-            for (GVertex<Pixel> i: x)  {
-                Pixel d = i.data();
-                image.setRGB(d.col(), d.row(), d.value());
-            }
+            //for (GVertex<Pixel> i: x)  {
+            //    Pixel d = i.data();
+            //    image.setRGB(d.col(), d.row(), d.value());
+            //}
 
             File f = new File("output.png");
             ImageIO.write(image, "png", f);
@@ -75,6 +91,8 @@ public class P4C {
 
             // log the exception
             // re-throw if desired
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("Missing File! :(\n");
         }
     }
 

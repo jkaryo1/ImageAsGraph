@@ -10,7 +10,6 @@ public class PixelDistance<T> implements Distance<T> {
 
     @Override
     public double distance(T one, T two) {
-        // TODO Auto-generated method stub
         return 0;
     }
     

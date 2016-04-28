@@ -23,4 +23,28 @@ public class Pixel {
         this.col = c;
         this.value = v;
     }
+    
+    /**
+     * Get row method.
+     * @return the row
+     */
+    public int row() {
+        return this.row;
+    }
+    
+    /**
+     * Get col method.
+     * @return the row
+     */
+    public int col() {
+        return this.col;
+    }
+    
+    /**
+     * Get value method.
+     * @return the row
+     */
+    public int value() {
+        return this.value;
+    }
 }
