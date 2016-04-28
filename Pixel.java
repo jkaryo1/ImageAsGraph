@@ -11,14 +11,14 @@ public class Pixel {
     /**Pixel's column.*/
     private int col;
     /**Pixel's value.*/
-    private Integer value;
+    private int value;
     
     /**Constructor.
      * @param r row
      * @param c col
      * @param v value
      */
-    public Pixel(int r, int c, Integer v) {
+    public Pixel(int r, int c, int v) {
         this.row = r;
         this.col = c;
         this.value = v;
