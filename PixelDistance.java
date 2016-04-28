@@ -4,12 +4,15 @@
  * jkaryo1, cknowlt3, dfeldma9, dfisch11
  * P4
  * 600.226
- * @param <T> the abstract data type.
+ * @param <Pixel> the abstract data type.
  */
-public class PixelDistance<T> implements Distance<T> {
+public class PixelDistance<Pixel> implements Distance<Pixel> {
 
     @Override
-    public double distance(T one, T two) {
+    public double distance(Pixel one, Pixel two) {
+        int b1 = one.value() & 0xFF;
+        int g1 = ((int)one >> 8) & 0xFF;
+        int r1 = ((int) one >> 16) & 0xFF;
         return 0;
     }
     
