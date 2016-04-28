@@ -25,15 +25,15 @@ public class P4C {
      *  @return the graph that was created
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
-        WGraph<Pixel> g = new WGraphP4<Pixel>();
+        WGraph<GVertex<Pixel>> g = new WGraphP4<GVertex<Pixel>>();
         for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
                 Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
-                g.addVertex(pixel);
+                GVertex<Pixel> vert = new GVertex<Pixel>(pixel, g.nextID());
+                g.addVertex(vert);
                 if (row != 0) {
-                    Pixel temp = new Pixel(row, col - 1, image.getRGB(col - 1, row))
-                    double w = pd.distance(pixel, temp);
-                    g.addEdge(pixel, temp, w);
+                    double w = pd.distance(pixel, array[row][col - 1]);
+                    g.addEdge(pixel, array[row][col - 1], w);
                 }
                 if (col != 0) {
                     //insert right edge.
