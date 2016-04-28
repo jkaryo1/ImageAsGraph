@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * P4.
@@ -25,21 +26,21 @@ public class P4C {
      *  @return the graph that was created
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
-        WGraph<GVertex<Pixel>> g = new WGraphP4<GVertex<Pixel>>();
+        WGraph<Pixel> g = new WGraphP4<Pixel>();
         for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
                 Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
-                GVertex<Pixel> vert = new GVertex<Pixel>(pixel, g.nextID());
-                g.addVertex(vert);
-                if (row != 0) {
-                    double w = pd.distance(pixel, array[row][col - 1]);
-                    g.addEdge(pixel, array[row][col - 1], w);
-                }
-                if (col != 0) {
-                    //insert right edge.
-                }
+                g.addVertex(pixel);
             }
         }
+        
+        GVertex<Pixel> temp;
+        List<GVertex<Pixel>> list = g.allVertices();
+        for ( GVertex<Pixel> vertex : list) {]
+            temp = vertex;
+            WEdge<Pixel> edge = new WEdge<Pixel>();
+        }
+        
         return g;
     }
 
