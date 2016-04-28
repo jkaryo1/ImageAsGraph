@@ -70,7 +70,7 @@ public class GVertex<T>
     }
 
     /**
-     * get data method
+     * get data method.
      * @return the data
      */
     public T data() {

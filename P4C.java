@@ -60,6 +60,7 @@ public class P4C {
             BufferedImage image = ImageIO.read(new File(args[0]));
             WGraph<Pixel> g = imageToGraph(image, new PixelDistance<Pixel>());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
+            WGraph<Pixel> kruskals = new WGraphP4<>();
 
             System.out.print("result =  " + res.size() + "\n");
             System.out.print("NSegments =  "
@@ -72,9 +73,14 @@ public class P4C {
                 }
             }
 
+            //Make a new graph will all the edges (adds all the vertices)
+            for (WEdge<Pixel> e : g.kruskals()) {
+                kruskals.addEdge(e);
+            }
+            
             // After you have a spanning tree connected component x, 
             // you can generate an output image like this:
-            for (GVertex<Pixel> i: g.kruskals())  {
+            for (GVertex<Pixel> i: kruskals.allVertices())  {
                 Pixel d = i.data();
                 image.setRGB(d.col(), d.row(), d.value());
             }
