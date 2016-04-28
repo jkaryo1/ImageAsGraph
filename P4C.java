@@ -30,10 +30,12 @@ public class P4C {
             for (int col = 0; col < image.getWidth(); col++) {
                 Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
                 g.addVertex(pixel);
-                if (row != image.getHeight()) {
-                    // insert down (up) edge.
+                if (row != 0) {
+                    Pixel temp = new Pixel(row, col - 1, image.getRGB(col - 1, row))
+                    double w = pd.distance(pixel, temp);
+                    g.addEdge(pixel, temp, w);
                 }
-                if (col != image.getWidth()) {
+                if (col != 0) {
                     //insert right edge.
                 }
             }
