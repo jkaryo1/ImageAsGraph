@@ -19,7 +19,7 @@ public class P4C {
      *  @return the graph that was created
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
-
+        return null;
     }
 
 
@@ -31,7 +31,7 @@ public class P4C {
      */
 
     static List<WEdge<Pixel>> segmenter(WGraph<Pixel> g, double kvalue) {
-
+        return null;
     }
 
     public static void main(String[] args) {
