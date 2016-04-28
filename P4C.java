@@ -26,9 +26,16 @@ public class P4C {
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
         WGraph<Pixel> g = new WGraphP4<Pixel>();
-        for (int row = 0; row < image.getHeight(); row++) {
-            for (int p = 0; p < image.getWidth(); p++) {
-                Pixel pixel = new Pixel(row, p, image.getRGB(row, p));
+        for (int row = 0; row > -1 * image.getHeight(); row--) {
+            for (int col = 0; col < image.getWidth(); col++) {
+                Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
+                g.addVertex(pixel);
+                if (row != -1 * image.getHeight()) {
+                    // insert down (up) edge.
+                }
+                if (col != image.getWidth()) {
+                    //insert right edge.
+                }
             }
         }
         return g;
