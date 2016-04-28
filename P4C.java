@@ -26,11 +26,11 @@ public class P4C {
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
         WGraph<Pixel> g = new WGraphP4<Pixel>();
-        for (int row = 0; row > -1 * image.getHeight(); row--) {
+        for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
                 Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
                 g.addVertex(pixel);
-                if (row != -1 * image.getHeight()) {
+                if (row != image.getHeight()) {
                     // insert down (up) edge.
                 }
                 if (col != image.getWidth()) {
@@ -65,7 +65,7 @@ public class P4C {
           // the line that reads the image file
 
             BufferedImage image = ImageIO.read(new File(args[0]));
-            WGraph<Pixel> g = imageToGraph(image, new PixelDistance<Pixel>());
+            WGraph<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraph<Pixel> kruskals = new WGraphP4<>();
 
