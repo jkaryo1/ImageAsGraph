@@ -43,6 +43,13 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public int numVerts() {
         return this.map.size();
     }
+    
+    /**Returns current ID.
+     * @return current id
+     */
+    public int id() {
+        return this.nextID;
+    }
 
     @Override
     public int nextID() {
