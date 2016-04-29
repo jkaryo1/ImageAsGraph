@@ -117,9 +117,6 @@ public class P4C {
             BufferedImage image = ImageIO.read(new File(args[0]));
             WGraph<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
-            for (WEdge<Pixel> pix : res) {
-                System.out.println(pix.weight());
-            }
             WGraph<Pixel> kruskals = new WGraphP4<>();
 
             System.out.print("result =  " + res.size() + "\n");
@@ -127,8 +124,8 @@ public class P4C {
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
 
             // make a background image to put a segment into
-            for (int i = 0; i < image.getHeight(); i++) {
-                for (int j = 0; j < image.getWidth(); j++) {
+            for (int i = 0; i < image.getTileHeight(); i++) {
+                for (int j = 0; j < image.getTileWidth(); j++) {
                     image.setRGB(j, i, gray);
                 }
             }
