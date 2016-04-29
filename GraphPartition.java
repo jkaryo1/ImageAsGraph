@@ -9,8 +9,8 @@ public class GraphPartition {
     /** Number of values to keep smin/max.*/
     private static final int LENGTH = 3;
     
-    /** The size of the partition.  */
-    private int size;
+    /** Tuning parameter.*/
+    private static final int TUNING = 10;
 
     /** The map holding the parents for each node.  */
     private HashMap<Integer, MinMax> parMap;
@@ -26,7 +26,6 @@ public class GraphPartition {
      */
     public GraphPartition(List<GVertex<Pixel>> verts) {
         int num = verts.size();
-        this.size = num;
         this.weight = new int[num];
         this.parent = new int[num];
         this.parMap = new HashMap<Integer, MinMax>(num + 1, 1);
@@ -47,17 +46,45 @@ public class GraphPartition {
     boolean union(int a, int b) {
         int root1 = this.find(a);     // Find root of node a
         int root2 = this.find(b);     // Find root of node b
-        if (root1 != root2) {    // Merge with weighted union
+        MinMax temp1 = this.parMap.get(root1);
+        MinMax temp2 = this.parMap.get(root2);
+        boolean condition = this.diffCond(temp1, temp2, 
+                this.weight[root1], this.weight[root2]);
+        if (root1 != root2 && condition) {    // Merge with weighted union
             if (this.weight[root2] > this.weight[root1]) {
                 this.parent[root1] = root2;
                 this.weight[root2] += this.weight[root1];
+                temp1.set(temp2);
+                this.parMap.put(root1, temp1);
             } else {
                 this.parent[root2] = root1;
                 this.weight[root1] += this.weight[root2];
+                temp2.set(temp1);
+                this.parMap.put(root2, temp2);
             }
             return true;
         }
         return false;
+    }
+    
+    /**Second condition.
+     * @param a first MinMax
+     * @param b second MinMax
+     * @param aWeight a's weight
+     * @param bWeight b's weight
+     * @return whether to union*/
+    boolean diffCond(MinMax a, MinMax b, int aWeight, int bWeight) {
+        int[] diffA = a.diff();
+        int[] diffB = b.diff();
+        a.set(b);
+        int[] diffAB = a.diff();
+        int weightSum = aWeight + bWeight;
+        for (int i = 0; i < LENGTH; i++) {
+            if (diffAB[i] > Math.min(diffA[i], diffB[i]) + TUNING / weightSum) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Find the (root of the) set containing a node, with path compression.
