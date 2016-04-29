@@ -118,7 +118,7 @@ public class P4C {
             // log the exception
             // re-throw if desired
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.print("Missing File! :(\n");
+            System.out.print("Array Index Exception!");
         }
     }
 
