@@ -25,39 +25,30 @@ public class P4C {
      *  @param pd the distance object for pixels
      *  @return the graph that was created
      */
-    static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
-        WGraphP4<Pixel> g = new WGraphP4<Pixel>();
-        ArrayList<Pixel> pix = new ArrayList<Pixel>();
-        pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
-        g.addVertex(pix.get(0));
+    static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel>
+            pd) throws IndexOutOfBoundsException {
+        WGraph<Pixel> g = new WGraphP4<Pixel>();
+        ArrayList<GVertex<Pixel>> pix =
+                new ArrayList<GVertex<Pixel>>(g.allVertices());
         for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
                 if (col < image.getWidth() - 1) {
-                    Pixel v1 = pix.get(row * image.getWidth() + col);
-                    Pixel v2 = new Pixel(row, col + 1, image.getRGB(row, col));
-                    if (row == 0) {
-                        pix.add(v2);
-                    }
-                    g.addVertex(v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
-                    g.addEdge(g1, g2, pd.distance(v1, v2));
+                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
+                    GVertex<Pixel> v2 =
+                            pix.get(row * image.getHeight() + col + 1);
+                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
                 }
             }
             if (row < image.getHeight() - 1) {
                 for (int col = 0; col < image.getWidth(); col++) {
-                    Pixel v1 = pix.get(row * image.getWidth() + col);
-                    Pixel v2 = new Pixel(row + 1, col, image.getRGB(row, col));
-                    pix.add(v2);
-                    g.addVertex(v2);
-                    GVertex<Pixel> g1 = 
-                            new GVertex<Pixel>(v1, g.id() - image.getWidth());
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
-                    g.addEdge(g1, g2, pd.distance(v1, v2));
+                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
+                    GVertex<Pixel> v2 =
+                            pix.get((row + 1) * image.getHeight() + col);
+                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
                 }
             }
         }
-        
+
         return g;
     }
 
