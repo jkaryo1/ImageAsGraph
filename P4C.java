@@ -132,7 +132,7 @@ public class P4C {
             }
 
             // Make a new graph will all the edges (adds all the vertices)
-            for (WEdge<Pixel> e : g.kruskals()) {
+            for (WEdge<Pixel> e : res) {
                 kruskals.addEdge(e);
             }
 
