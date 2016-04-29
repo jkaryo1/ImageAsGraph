@@ -17,16 +17,13 @@ public class PixelDistance implements Distance<Pixel> {
         int g2 = two.green();
         int r2 = two.red();
         int e2 = two.alpha();
-        
-        System.out.println(b1 + " " + b2);
-        System.out.println(g1 + " " + g2);
-        System.out.println(r1 + " " + r2);
-        System.out.println(e1 + " " + e2);
 
         int b = (int) Math.pow((b1 - b2), 2);
         int g = (int) Math.pow((g1 - g2), 2);
         int r = (int) Math.pow((r1 - r2), 2);
         int e = (int) Math.pow((e1 - e2), 2);
+        
+        System.out.println(b + " " + g + " " + r + " " + e);
 
         return b + g + r + e;
     }
