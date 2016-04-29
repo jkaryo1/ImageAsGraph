@@ -85,7 +85,7 @@ public class P4C {
             sourceID = temp.source().id();
             endID = temp.end().id();
             
-            suc = part.unionWW(endID, sourceID, kvalue);
+            suc = part.union(endID, sourceID);
             
             if (suc) {
                 edges.add(temp);
