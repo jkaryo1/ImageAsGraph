@@ -95,7 +95,7 @@ public class P4C {
             // System.out.println(temp.weight());
             sourceID = temp.source().id();
             endID = temp.end().id();
-            suc = part.union(endID, sourceID);
+            suc = part.union(sourceID, endID);
 
             if (suc) {
                 edges.add(temp);
@@ -122,10 +122,10 @@ public class P4C {
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
             
-            System.out.print("result =  " + g.allVertices().toString() + "\n");
+            //System.out.print("result =  " + g.allVertices().toString() + "\n");
 
             System.out.print("result =  " + res.size() + "\n");
-            System.out.print(res.toString() + "\n");
+            //System.out.print(res.toString() + "\n");
             System.out.print(
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
 
@@ -141,7 +141,7 @@ public class P4C {
                 kruskals.addEdge(e);
             }
 
-            System.out.print("result =  " + kruskals.allVertices().toString() + "\n");
+            //System.out.print("result =  " + kruskals.allVertices().toString() + "\n");
             
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
