@@ -27,18 +27,25 @@ public class P4C {
      */
     static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
         WGraph<Pixel> g = new WGraphP4<Pixel>();
+        ArrayList<GVertex<Pixel>> pix = 
+                new ArrayList<GVertex<Pixel>>(g.allVertices());
         for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
-                Pixel pixel = new Pixel(row, col, image.getRGB(col, row));
-                g.addVertex(pixel);
+                if (col < image.getWidth() - 1) {
+                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
+                    GVertex<Pixel> v2 = 
+                            pix.get(row * image.getHeight() + col + 1);
+                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
+                }
             }
-        }
-        
-        GVertex<Pixel> temp;
-        List<GVertex<Pixel>> list = g.allVertices();
-        for ( GVertex<Pixel> vertex : list) {]
-            temp = vertex;
-            WEdge<Pixel> edge = new WEdge<Pixel>();
+            if (row < image.getHeight() - 1) {
+                for (int col = 0; col < image.getWidth(); col++) {
+                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
+                    GVertex<Pixel> v2 = 
+                            pix.get((row + 1) * image.getHeight() + col);
+                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
+                }
+            }
         }
         
         return g;
