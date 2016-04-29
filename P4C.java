@@ -139,7 +139,7 @@ public class P4C {
             // you can generate an output image like this:
             for (GVertex<Pixel> i : kruskals.allVertices()) {
                 Pixel d = i.data();
-                System.out.println(d.col() + " " + d.row());
+                //System.out.println(d.col() + " " + d.row());
                 image.setRGB(d.col(), d.row(), d.value());
             }
 
