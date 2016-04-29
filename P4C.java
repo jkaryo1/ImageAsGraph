@@ -120,7 +120,8 @@ public class P4C {
 
             BufferedImage image = ImageIO.read(new File(args[0]));
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
-            List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
+            List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble
+                    (args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
 
             System.out.print("result =  " + res.size() + "\n");
