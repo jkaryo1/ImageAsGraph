@@ -27,7 +27,8 @@ public class P4C {
      *            the distance object for pixels
      * @return the graph that was created
      */
-    static WGraphP4<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
+    static WGraphP4<Pixel> imageToGraph(BufferedImage image,
+            Distance<Pixel> pd) {
         WGraphP4<Pixel> g = new WGraphP4<Pixel>();
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
         pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
@@ -139,7 +140,7 @@ public class P4C {
             // you can generate an output image like this:
             for (GVertex<Pixel> i : kruskals.allVertices()) {
                 Pixel d = i.data();
-                //System.out.println(d.col() + " " + d.row());
+                // System.out.println(d.col() + " " + d.row());
                 image.setRGB(d.col(), d.row(), d.value());
             }
 
