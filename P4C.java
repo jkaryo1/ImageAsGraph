@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -135,10 +136,16 @@ public class P4C {
             
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
-            for (GVertex<Pixel> i : kruskals.allVertices()) {
+            /*for (GVertex<Pixel> i : kruskals.allVertices()) {
                 Pixel d = i.data();
                 // System.out.println(d.col() + " " + d.row());
                 image.setRGB(d.col(), d.row(), d.value());
+            }*/
+            Iterator<GVertex<Pixel>> iter = kruskals.allVertices().iterator();
+            for (int row = 0; row < image.getHeight(); row++) {
+                for (int col = 0; col < image.getWidth(); col++) {
+                    image.setRGB(col, row, iter.next().data().value());
+                }
             }
 
             File f = new File("output.png");
