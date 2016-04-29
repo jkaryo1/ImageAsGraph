@@ -30,11 +30,16 @@ public class P4C {
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
         pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
         g.addVertex(pix.get(0));
-        for (int row = 0; row < image.getHeight(); row++) {
-            for (int col = 0; col < image.getWidth(); col++) {
-                if (col < image.getWidth() - 1) {
-                    Pixel v1 = pix.get(row * image.getWidth() + col);
-                    Pixel v2 = new Pixel(row, col + 1, image.getRGB(row, col));
+        int height = image.getTileWidth();
+        int width = image.getTileHeight();
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                if (col < width - 1) {
+                    Pixel v1 = pix.get(row * width + col);
+//                    System.out.println("Width of Pic is: " + width + " Row: " +
+//                            row + " Col: " + col);
+                    Pixel v2 = new Pixel(row, col + 1, image.getRGB(row, col
+                            + 1));
                     if (row == 0) {
                         pix.add(v2);
                     }
@@ -44,14 +49,15 @@ public class P4C {
                     g.addEdge(g1, g2, pd.distance(v1, v2));
                 }
             }
-            if (row < image.getHeight() - 1) {
-                for (int col = 0; col < image.getWidth(); col++) {
-                    Pixel v1 = pix.get(row * image.getWidth() + col);
-                    Pixel v2 = new Pixel(row + 1, col, image.getRGB(row, col));
+            if (row < height - 1) {
+                for (int col = 0; col < width; col++) {
+                    Pixel v1 = pix.get(row * width + col);
+                    Pixel v2 = new Pixel(row + 1, col, image.getRGB(row + 1,
+                            col));
                     pix.add(v2);
                     g.addVertex(v2);
                     GVertex<Pixel> g1 =
-                            new GVertex<Pixel>(v1, g.id() - image.getWidth());
+                            new GVertex<Pixel>(v1, g.id() - width);
                     GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
                     g.addEdge(g1, g2, pd.distance(v1, v2));
                 }
@@ -126,8 +132,6 @@ public class P4C {
 
             // log the exception
             // re-throw if desired
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.print("Missing File! :(\n");
         }
     }
 
