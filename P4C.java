@@ -25,26 +25,35 @@ public class P4C {
      *  @param pd the distance object for pixels
      *  @return the graph that was created
      */
-    static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel>
-            pd) throws IndexOutOfBoundsException {
-        WGraph<Pixel> g = new WGraphP4<Pixel>();
-        ArrayList<GVertex<Pixel>> pix =
-                new ArrayList<GVertex<Pixel>>(g.allVertices());
+    static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
+        WGraphP4<Pixel> g = new WGraphP4<Pixel>();
+        ArrayList<Pixel> pix = new ArrayList<Pixel>();
+        pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
+        g.addVertex(pix.get(0));
         for (int row = 0; row < image.getHeight(); row++) {
             for (int col = 0; col < image.getWidth(); col++) {
                 if (col < image.getWidth() - 1) {
-                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
-                    GVertex<Pixel> v2 =
-                            pix.get(row * image.getHeight() + col + 1);
-                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
+                    Pixel v1 = pix.get(row * image.getWidth() + col);
+                    Pixel v2 = new Pixel(row, col + 1, image.getRGB(row, col));
+                    if (row == 0) {
+                        pix.add(v2);
+                    }
+                    g.addVertex(v2);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
+                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
+                    g.addEdge(g1, g2, pd.distance(v1, v2));
                 }
             }
             if (row < image.getHeight() - 1) {
                 for (int col = 0; col < image.getWidth(); col++) {
-                    GVertex<Pixel> v1 = pix.get(row * image.getHeight() + col);
-                    GVertex<Pixel> v2 =
-                            pix.get((row + 1) * image.getHeight() + col);
-                    g.addEdge(v1, v2, pd.distance(v1.data(), v2.data()));
+                    Pixel v1 = pix.get(row * image.getWidth() + col);
+                    Pixel v2 = new Pixel(row + 1, col, image.getRGB(row, col));
+                    pix.add(v2);
+                    g.addVertex(v2);
+                    GVertex<Pixel> g1 =
+                            new GVertex<Pixel>(v1, g.id() - image.getWidth());
+                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
+                    g.addEdge(g1, g2, pd.distance(v1, v2));
                 }
             }
         }
@@ -73,7 +82,7 @@ public class P4C {
         final int gray = 0x202020;
 
         try {
-          // the line that reads the image file
+            // the line that reads the image file
 
             BufferedImage image = ImageIO.read(new File(args[0]));
             System.out.println("hey");
@@ -84,7 +93,7 @@ public class P4C {
 
             System.out.print("result =  " + res.size() + "\n");
             System.out.print("NSegments =  "
-                             + (g.numVerts() - res.size()) + "\n");
+                    + (g.numVerts() - res.size()) + "\n");
 
             // make a background image to put a segment into
             for (int i = 0; i < image.getHeight(); i++) {
@@ -97,8 +106,8 @@ public class P4C {
             for (WEdge<Pixel> e : g.kruskals()) {
                 kruskals.addEdge(e);
             }
-            
-            // After you have a spanning tree connected component x, 
+
+            // After you have a spanning tree connected component x,
             // you can generate an output image like this:
             for (GVertex<Pixel> i: kruskals.allVertices())  {
                 Pixel d = i.data();
@@ -118,7 +127,7 @@ public class P4C {
             // log the exception
             // re-throw if desired
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.print("Array Index Exception!");
+            System.out.print("Missing File! :(\n");
         }
     }
 
