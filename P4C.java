@@ -32,17 +32,14 @@ public class P4C {
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
         pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
         g.addVertex(pix.get(0));
-        int height = image.getTileWidth();
-        int width = image.getTileHeight();
+        int height = image.getTileHeight();
+        int width = image.getTileWidth();
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (col < width - 1) {
                     Pixel v1 = pix.get(row * width + col);
-                    // System.out.println("Width of Pic is: " + width + " Row: "
-                    // +
-                    // row + " Col: " + col);
-                    Pixel v2 = new Pixel(row, col + 1,
-                            image.getRGB(row, col + 1));
+                    Pixel v2 = new Pixel(col + 1, row,
+                            image.getRGB(col + 1, row));
                     if (row == 0) {
                         pix.add(v2);
                     }
@@ -55,8 +52,8 @@ public class P4C {
             if (row < height - 1) {
                 for (int col = 0; col < width; col++) {
                     Pixel v1 = pix.get(row * width + col);
-                    Pixel v2 = new Pixel(row + 1, col,
-                            image.getRGB(row + 1, col));
+                    Pixel v2 = new Pixel(col, row + 1,
+                            image.getRGB(col, row + 1));
                     pix.add(v2);
                     g.addVertex(v2);
                     GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width);
