@@ -53,23 +53,23 @@ public class GraphPartition {
     boolean union(int a, int b) {
         int root1 = this.find(a); // Find root of node a
         int root2 = this.find(b); // Find root of node b
-        MinMax temp1 = this.parMap.get(root1);
-        MinMax temp2 = this.parMap.get(root2);
-        boolean condition = this.diffCond(temp1, temp2, this.weight[root1],
-                this.weight[root2]);
-        if (root1 != root2 && condition) { // Merge with weighted union
-            if (this.weight[root2] > this.weight[root1]) {
-                this.parent[root1] = root2;
-                this.weight[root2] += this.weight[root1];
-                temp1.set(temp2);
-                this.parMap.put(root1, temp1);
-            } else {
-                this.parent[root2] = root1;
-                this.weight[root1] += this.weight[root2];
-                temp2.set(temp1);
-                this.parMap.put(root2, temp2);
+        if (root1 != root2) { // Merge with weighted union
+            MinMax temp1 = this.parMap.get(root1);
+            MinMax temp2 = this.parMap.get(root2);
+            if (this.diffCond(temp1, temp2, this.weight[root1],
+                    this.weight[root2])) {
+                MinMax comb = new MinMax(temp1, temp2);
+                if (this.weight[root2] > this.weight[root1]) {
+                    this.parent[root1] = root2;
+                    this.weight[root2] += this.weight[root1];
+                    this.parMap.put(root2, comb);
+                } else {
+                    this.parent[root2] = root1;
+                    this.weight[root1] += this.weight[root2];
+                    this.parMap.put(root1, comb);
+                }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -86,12 +86,15 @@ public class GraphPartition {
     boolean diffCond(MinMax a, MinMax b, int aWeight, int bWeight) {
         int[] diffA = a.diff();
         int[] diffB = b.diff();
-        a.set(b);
-        int[] diffAB = a.diff();
+        MinMax comb = new MinMax(a, b);
+        int[] diffAB = comb.diff();
         int weightSum = aWeight + bWeight;
         for (int i = 0; i < LENGTH; i++) {
-            if ((double) diffAB[i] > (double) Math.min(diffA[i], diffB[i])
-                    + this.kvalue / weightSum) {
+            int min = diffA[i];
+            if (diffB[i] < min) {
+                min = diffB[i];
+            }
+            if ((double) diffAB[i] > (min + (this.kvalue / weightSum))) {
                 return false;
             }
         }

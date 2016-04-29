@@ -7,17 +7,17 @@
 public class MinMax {
     
     /**Minimum R value.*/
-    public int minR;
+    private int minR;
     /**Minimum G value.*/
-    public int minG;
+    private int minG;
     /**Minimum B value.*/
-    public int minB;
+    private int minB;
     /**Maximum R value.*/
-    public int maxR;
+    private int maxR;
     /**Maximum G value.*/
-    public int maxG;
+    private int maxG;
     /**Maximum B value.*/
-    public int maxB;
+    private int maxB;
     
     /**Constructor.
      * @param p Pixel*/
@@ -28,6 +28,19 @@ public class MinMax {
         this.maxR = p.red();
         this.maxG = p.green();
         this.maxB = p.blue();
+    }
+    
+    /**Second Constructor.
+     * @param a MinMax
+     * @param b MinMax
+     */
+    public MinMax(MinMax a, MinMax b) {
+        this.minR = Math.min(a.minR(), b.minR());
+        this.minG = Math.min(a.minG(), b.minG());
+        this.minB = Math.min(a.minB(), b.minB());
+        this.maxR = Math.max(a.maxR(), b.maxR());
+        this.maxG = Math.max(a.maxG(), b.maxG());
+        this.maxB = Math.max(a.maxB(), b.maxB());
     }
     
     /**Set min and max values appropriately.
@@ -45,13 +58,13 @@ public class MinMax {
             this.minB = m.minB;
         }
         if (m.maxR() > this.maxR) {
-            this.maxR = m.maxR;
+            this.maxR = m.maxR();
         }
         if (m.maxG() > this.maxG) {
-            this.maxG = m.maxG;
+            this.maxG = m.maxG();
         }
         if (m.maxB() > this.maxB) {
-            this.maxB = m.maxB;
+            this.maxB = m.maxB();
         }
     }
     

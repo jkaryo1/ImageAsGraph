@@ -135,7 +135,7 @@ public class P4C {
             
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
-            for (GVertex<Pixel> i : g.allVertices()) {
+            for (GVertex<Pixel> i : kruskals.allVertices()) {
                 Pixel d = i.data();
                 // System.out.println(d.col() + " " + d.row());
                 image.setRGB(d.col(), d.row(), d.value());
