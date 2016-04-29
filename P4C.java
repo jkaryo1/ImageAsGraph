@@ -27,7 +27,7 @@ public class P4C {
      *            the distance object for pixels
      * @return the graph that was created
      */
-    static WGraph<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
+    static WGraphP4<Pixel> imageToGraph(BufferedImage image, Distance<Pixel> pd) {
         WGraphP4<Pixel> g = new WGraphP4<Pixel>();
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
         pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
@@ -115,9 +115,9 @@ public class P4C {
             // the line that reads the image file
 
             BufferedImage image = ImageIO.read(new File(args[0]));
-            WGraph<Pixel> g = imageToGraph(image, new PixelDistance());
+            WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
-            WGraph<Pixel> kruskals = new WGraphP4<>();
+            WGraphP4<Pixel> kruskals = new WGraphP4<>();
 
             System.out.print("result =  " + res.size() + "\n");
             System.out.print(
