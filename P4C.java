@@ -78,7 +78,7 @@ public class P4C {
     static List<WEdge<Pixel>> segmenter(WGraph<Pixel> g, double kvalue) {
         List<WEdge<Pixel>> edges = new ArrayList<WEdge<Pixel>>();
         PriorityQueue<WEdge<Pixel>> queue = new PQHeap<WEdge<Pixel>>();
-        Partition part = new Partition(g.numVerts());
+        GraphPartition part = new GraphPartition(g.allVertices());
         WEdge<Pixel> temp;
         int sourceID;
         int endID;
