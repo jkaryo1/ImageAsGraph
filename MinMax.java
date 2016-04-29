@@ -90,4 +90,11 @@ public class MinMax {
     public int maxB() {
         return this.maxB;
     }
+    
+    /**Returns difference array.
+     * @return difference array*/
+    public int[] diff() {
+        return new int[]{this.maxR - this.minR, this.maxG - this.minG, 
+            this.maxB - this.minB};
+    }
 }

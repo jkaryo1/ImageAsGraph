@@ -14,6 +14,9 @@ public class GraphPartition {
 
     /** The map holding the parents for each node.  */
     private HashMap<Integer, MinMax> parMap;
+    
+    /** The array keeping the parents for each node.*/
+    private int[] parent;
 
     /** The array holding the weights (size) of the tree for each node. */
     private int[] weight;
@@ -25,11 +28,14 @@ public class GraphPartition {
         int num = verts.size();
         this.size = num;
         this.weight = new int[num];
+        this.parent = new int[num];
         this.parMap = new HashMap<Integer, MinMax>(num + 1, 1);
         int i = 0;
         for (GVertex<Pixel> pix : verts) {
+            this.parent[i] = -1;
             this.weight[i] = 1;
             this.parMap.put(pix.id(), new MinMax(pix.data()));
+            i++;
         }
     }
 
