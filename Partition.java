@@ -45,18 +45,6 @@ public class Partition {
         }
         return false;
     }
-    
-    int diff1(int root1, int root2) {
-        return 0;
-    }
-    
-    int diff2(int root1, int root2) {
-        return 0;
-    }
-    
-    int diff3(int root1, int root2) {
-        return 0;
-    }
 
     /** Find the (root of the) set containing a node, with path compression.
      *  @param curr the node to find

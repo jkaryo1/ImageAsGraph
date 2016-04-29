@@ -6,26 +6,17 @@
  * 600.226
  */
 public class PixelDistance implements Distance<Pixel> {
-
-    /**Value for a full byte.*/
-    public static final int FULL = 0xFF;
-    /**For second byte taken out.*/
-    public static final int SECOND = 8;
-    /**For third byte taken out.*/
-    public static final int THIRD = 16;
-    /**For fourth byte taken out.*/
-    public static final int FOURTH = 24;
     
     @Override
     public double distance(Pixel one, Pixel two) {
-        int b1 = one.value() & FULL;
-        int g1 = (one.value() >> SECOND) & FULL;
-        int r1 = (one.value() >> THIRD) & FULL;
-        int e1 = (one.value() >> FOURTH) & FULL;
-        int b2 = two.value() & FULL;
-        int g2 = (two.value() >> SECOND) & FULL;
-        int r2 = (two.value() >> THIRD) & FULL;
-        int e2 = (two.value() >> FOURTH) & FULL;
+        int b1 = one.blue();
+        int g1 = one.green();
+        int r1 = one.red();
+        int e1 = one.alpha();
+        int b2 = one.blue();
+        int g2 = one.green();
+        int r2 = one.red();
+        int e2 = one.alpha();
 
         int b = (int) Math.pow((b1 - b2), 2);
         int g = (int) Math.pow((g1 - g2), 2);
