@@ -47,7 +47,9 @@ public class P4C {
                     g.addVertex(v2);
                     GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
                     GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
-                    g.addEdge(g1, g2, pd.distance(v1, v2));
+                    double d = pd.distance(v1, v2);
+                    System.out.println(d);
+                    g.addEdge(g1, g2, d);
                 }
             }
             if (row < height - 1) {
@@ -91,7 +93,7 @@ public class P4C {
 
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();
-            System.out.println(temp.weight());
+            //System.out.println(temp.weight());
             sourceID = temp.source().id();
             endID = temp.end().id();
             suc = part.union(endID, sourceID);
