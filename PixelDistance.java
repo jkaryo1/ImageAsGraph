@@ -13,10 +13,10 @@ public class PixelDistance implements Distance<Pixel> {
         int g1 = one.green();
         int r1 = one.red();
         int e1 = one.alpha();
-        int b2 = one.blue();
-        int g2 = one.green();
-        int r2 = one.red();
-        int e2 = one.alpha();
+        int b2 = two.blue();
+        int g2 = two.green();
+        int r2 = two.red();
+        int e2 = two.alpha();
 
         int b = (int) Math.pow((b1 - b2), 2);
         int g = (int) Math.pow((g1 - g2), 2);
