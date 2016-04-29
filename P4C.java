@@ -58,8 +58,8 @@ public class P4C {
                             image.getRGB(col, row + 1));
                     pix.add(v2);
                     g.addVertex(v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
+                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id() - 1);
                     g.addEdge(g1, g2, pd.distance(v1, v2));
                 }
             }
