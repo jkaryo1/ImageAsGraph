@@ -37,30 +37,22 @@ public class P4C {
         int width = image.getWidth();
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                if (col < width - 1) {
-                    Pixel v1 = pix.get(row * width + col);
-                    Pixel v2 = new Pixel(col + 1, row,
-                            image.getRGB(col + 1, row));
-                    if (row == 0) {
-                        pix.add(v2);
-                        g.addVertex(v2);
-                    }
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id() - 1);
+                Pixel v2 = new Pixel(col, row,
+                        image.getRGB(col, row));
+                pix.add(v2);
+                GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.nextID());
+                g.addVertex(g2);
+                if (col > 0) {
+                    Pixel v1 = pix.get(row * width + col - 1);
                     double d = pd.distance(v1, v2);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - 2);
                     g.addEdge(g1, g2, d);
                 }
-            }
-            if (row < height - 1) {
-                for (int col = 0; col < width; col++) {
-                    Pixel v1 = pix.get(row * width + col);
-                    Pixel v2 = new Pixel(col, row + 1,
-                            image.getRGB(col, row + 1));
-                    pix.add(v2);
-                    //g.addVertex(v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.nextID());
-                    g.addEdge(g1, g2, pd.distance(v1, v2));
+                if (row > 0) {
+                    Pixel v1 = pix.get((row - 1) * width + col);
+                    double d = pd.distance(v1, v2);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - width - 1);
+                    g.addEdge(g1, g2, d);
                 }
             }
         }
