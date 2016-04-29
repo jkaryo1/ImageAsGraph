@@ -33,8 +33,8 @@ public class P4C {
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
         pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
         g.addVertex(pix.get(0));
-        int height = image.getTileHeight();
-        int width = image.getTileWidth();
+        int height = image.getHeight();
+        int width = image.getWidth();
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 if (col < width - 1) {
@@ -125,8 +125,8 @@ public class P4C {
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
 
             // make a background image to put a segment into
-            for (int i = 0; i < image.getTileHeight(); i++) {
-                for (int j = 0; j < image.getTileWidth(); j++) {
+            for (int i = 0; i < image.getHeight(); i++) {
+                for (int j = 0; j < image.getWidth(); j++) {
                     image.setRGB(j, i, gray);
                 }
             }
