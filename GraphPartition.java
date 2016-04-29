@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class GraphPartition {
 
-    /** Number of values to keep smin/max. */
+    /** Number of values to keeps min/max. */
     private static final int LENGTH = 3;
 
     /** Tuning parameter. */
@@ -25,10 +25,8 @@ public class GraphPartition {
     /**
      * Create a partition of singleton sets of the given size.
      * 
-     * @param verts
-     *            list of the graph's vertices
-     * @param k
-     *            kvalue
+     * @param verts list of the graph's vertices
+     * @param k kvalue
      */
     public GraphPartition(List<GVertex<Pixel>> verts, double k) {
         int num = verts.size();
@@ -48,10 +46,8 @@ public class GraphPartition {
     /**
      * Weighted union of the sets containing two nodes, if different.
      * 
-     * @param a
-     *            the first node
-     * @param b
-     *            the second node
+     * @param a the first node
+     * @param b the second node
      * @return boolean weather or not they unioned
      */
     boolean union(int a, int b) {
@@ -81,14 +77,10 @@ public class GraphPartition {
     /**
      * Second condition.
      * 
-     * @param a
-     *            first MinMax
-     * @param b
-     *            second MinMax
-     * @param aWeight
-     *            a's weight
-     * @param bWeight
-     *            b's weight
+     * @param a first MinMax
+     * @param b second MinMax
+     * @param aWeight a's weight
+     * @param bWeight b's weight
      * @return whether to union
      */
     boolean diffCond(MinMax a, MinMax b, int aWeight, int bWeight) {
@@ -98,7 +90,7 @@ public class GraphPartition {
         int[] diffAB = a.diff();
         int weightSum = aWeight + bWeight;
         for (int i = 0; i < LENGTH; i++) {
-            if (diffAB[i] > Math.min(diffA[i], diffB[i])
+            if ((double) diffAB[i] > (double) Math.min(diffA[i], diffB[i])
                     + this.kvalue / weightSum) {
                 return false;
             }
@@ -109,8 +101,7 @@ public class GraphPartition {
     /**
      * Find the (root of the) set containing a node, with path compression.
      * 
-     * @param curr
-     *            the node to find
+     * @param curr the node to find
      * @return the root node
      */
     int find(int curr) {
