@@ -101,6 +101,7 @@ public class P4C {
             System.out.print("NSegments =  "
                     + (g.numVerts() - res.size()) + "\n");
 
+            
             // make a background image to put a segment into
             for (int i = 0; i < image.getHeight(); i++) {
                 for (int j = 0; j < image.getWidth(); j++) {
