@@ -31,8 +31,6 @@ public class P4C {
             Distance<Pixel> pd) {
         WGraphP4<Pixel> g = new WGraphP4<Pixel>();
         ArrayList<Pixel> pix = new ArrayList<Pixel>();
-        pix.add(new Pixel(0, 0, image.getRGB(0, 0)));
-        g.addVertex(pix.get(0));
         int height = image.getHeight();
         int width = image.getWidth();
         for (int row = 0; row < height; row++) {
