@@ -43,12 +43,11 @@ public class P4C {
                             image.getRGB(col + 1, row));
                     if (row == 0) {
                         pix.add(v2);
+                        g.addVertex(v2);
                     }
-                    g.addVertex(v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
+                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id() - 1);
                     double d = pd.distance(v1, v2);
-                    // System.out.println(d);
                     g.addEdge(g1, g2, d);
                 }
             }
@@ -122,8 +121,11 @@ public class P4C {
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
+            
+            System.out.print("result =  " + g.allVertices().toString() + "\n");
 
             System.out.print("result =  " + res.size() + "\n");
+            System.out.print(res.toString() + "\n");
             System.out.print(
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
 
@@ -139,6 +141,8 @@ public class P4C {
                 kruskals.addEdge(e);
             }
 
+            System.out.print("result =  " + kruskals.allVertices().toString() + "\n");
+            
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
             for (GVertex<Pixel> i : kruskals.allVertices()) {
