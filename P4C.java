@@ -43,10 +43,10 @@ public class P4C {
                             image.getRGB(col + 1, row));
                     if (row == 0) {
                         pix.add(v2);
-                        //g.addVertex(v2);
+                        g.addVertex(v2);
                     }
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
-                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.nextID());
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
+                    GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id() - 1);
                     double d = pd.distance(v1, v2);
                     g.addEdge(g1, g2, d);
                 }
