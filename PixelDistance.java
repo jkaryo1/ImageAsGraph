@@ -24,6 +24,7 @@ public class PixelDistance implements Distance<Pixel> {
         double e = Math.pow((e1 - e2), 2);
 
         return b + g + r + e;
+
     }
     
 }
