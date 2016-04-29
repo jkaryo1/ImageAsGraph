@@ -48,7 +48,7 @@ public class P4C {
                     GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
                     GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
                     double d = pd.distance(v1, v2);
-                    System.out.println(d);
+                    //System.out.println(d);
                     g.addEdge(g1, g2, d);
                 }
             }
