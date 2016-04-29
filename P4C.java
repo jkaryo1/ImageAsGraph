@@ -48,7 +48,7 @@ public class P4C {
                     GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 1);
                     GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.id());
                     double d = pd.distance(v1, v2);
-                    //System.out.println(d);
+                    // System.out.println(d);
                     g.addEdge(g1, g2, d);
                 }
             }
@@ -93,7 +93,7 @@ public class P4C {
 
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();
-            //System.out.println(temp.weight());
+            // System.out.println(temp.weight());
             sourceID = temp.source().id();
             endID = temp.end().id();
             suc = part.union(endID, sourceID);
@@ -120,8 +120,7 @@ public class P4C {
 
             BufferedImage image = ImageIO.read(new File(args[0]));
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
-            List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble
-                    (args[1]));
+            List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
 
             System.out.print("result =  " + res.size() + "\n");
