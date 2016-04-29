@@ -88,6 +88,7 @@ public class P4C {
         boolean suc;
 
         queue.init(g.allEdges());
+        System.out.println(queue.size());
 
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();
