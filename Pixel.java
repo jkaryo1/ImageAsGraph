@@ -27,7 +27,7 @@ public class Pixel {
      * @param c col
      * @param v value
      */
-    public Pixel(int r, int c, int v) {
+    public Pixel(int c, int r, int v) {
         this.row = r;
         this.col = c;
         this.value = v;
