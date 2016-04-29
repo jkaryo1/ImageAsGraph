@@ -88,10 +88,10 @@ public class P4C {
         boolean suc;
 
         queue.init(g.allEdges());
-        System.out.println(queue.size());
 
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();
+            System.out.println(temp.weight());
             sourceID = temp.source().id();
             endID = temp.end().id();
             suc = part.union(endID, sourceID);
@@ -111,7 +111,7 @@ public class P4C {
      */
     public static void main(String[] args) {
 
-        final int gray = 0x202020;
+        final int gray = 0x0DCDCDC;
 
         try {
             // the line that reads the image file
