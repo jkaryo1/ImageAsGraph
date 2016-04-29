@@ -62,7 +62,7 @@ public class Pixel {
      * @return third byte's value
      */
     public int red() {
-        return (this.value >> FOURTH) & FULL;
+        return (this.value >> THIRD) & FULL;
     }
     
     /**Gets second byte.
@@ -70,7 +70,7 @@ public class Pixel {
      * @return second byte's value
      */
     public int green() {
-        return (this.value >> THIRD) & FULL;
+        return (this.value >> SECOND) & FULL;
     }
     
     /**Gets first byte.
@@ -78,7 +78,7 @@ public class Pixel {
      * @return first byte's value
      */
     public int blue() {
-        return (this.value >> SECOND) & FULL;
+        return this.value & FULL;
     }
     
     /**Gets fourth byte.
@@ -86,6 +86,6 @@ public class Pixel {
      * @return fourth byte's value
      */
     public int alpha() {
-        return this.value & FULL;
+        return (this.value >> FOURTH) & FULL;
     }
 }
