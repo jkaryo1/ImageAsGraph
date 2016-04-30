@@ -47,8 +47,10 @@ public final class P4C {
                     double d = pd.distance(v1, v2);
                     GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
                     g.addEdge(g1, g2, d);
-                    System.out.println(g1.data().row() + " " + g1.data().col());
-                    System.out.println(g2.data().row() + " " + g2.data().col());
+                    // System.out.println(g1.data().row() + " " +
+                    // g1.data().col());
+                    // System.out.println(g2.data().row() + " " +
+                    // g2.data().col());
                 }
                 if (row > 0) {
                     Pixel v1 = pix.get(pix.size() - width - 1);
