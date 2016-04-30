@@ -143,31 +143,26 @@ public final class P4C {
 
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
-            LinkedList<GVertex<Pixel>> forest = new LinkedList<GVertex<Pixel>>(
-                    kruskals.allVertices());
+            LinkedList<GVertex<Pixel>> forest = 
+                    (LinkedList<GVertex<Pixel>>) kruskals.allVertices();
             int tree = 1;
             while (!forest.isEmpty()) {
                 GVertex<Pixel> head = forest.peek();
-                System.out.println("1");
                 List<GVertex<Pixel>> depth = kruskals.depthFirst(head);
-                System.out.println("5");
-                for (GVertex<Pixel> i : depth)  {
+                for (GVertex<Pixel> i : depth) {
                     Pixel d = i.data();
                     image.setRGB(d.col(), d.row(), d.value());
                     if (!forest.isEmpty()) {
-                        forest.removeFirst();
+                        forest.remove(i);
                     }
                 }
                 File f = new File(name + tree + ".png");
-                System.out.println("2");
                 ImageIO.write(image, "png", f);
-                System.out.println("3");
                 for (int i = 0; i < image.getHeight(); i++) {
                     for (int j = 0; j < image.getWidth(); j++) {
                         image.setRGB(j, i, gray);
                     }
                 }
-                System.out.println("4");
                 tree++;
             }
 
