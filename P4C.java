@@ -148,18 +148,26 @@ public final class P4C {
             int tree = 1;
             while (!forest.isEmpty()) {
                 GVertex<Pixel> head = forest.peek();
-                for (GVertex<Pixel> i : kruskals.depthFirst(head)) {
+                System.out.println("1");
+                List<GVertex<Pixel>> depth = kruskals.depthFirst(head);
+                System.out.println("5");
+                for (GVertex<Pixel> i : depth)  {
                     Pixel d = i.data();
                     image.setRGB(d.col(), d.row(), d.value());
-                    forest.remove(i);
+                    if (!forest.isEmpty()) {
+                        forest.removeFirst();
+                    }
                 }
                 File f = new File(name + tree + ".png");
+                System.out.println("2");
                 ImageIO.write(image, "png", f);
+                System.out.println("3");
                 for (int i = 0; i < image.getHeight(); i++) {
                     for (int j = 0; j < image.getWidth(); j++) {
                         image.setRGB(j, i, gray);
                     }
                 }
+                System.out.println("4");
                 tree++;
             }
 
