@@ -152,7 +152,9 @@ public final class P4C {
                 for (GVertex<Pixel> i : kruskals.depthFirst(head)) {
                     Pixel d = i.data();
                     image.setRGB(d.col(), d.row(), d.value());
-                    forest.remove();
+                    if (!forest.isEmpty()) {
+                        forest.remove();
+                    }
                 }
                 File f = new File("output" + tree + ".png");
                 ImageIO.write(image, "png", f);
