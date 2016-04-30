@@ -42,19 +42,29 @@ public class P4C {
                 GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.nextID());
                 g.addVertex(g2);
                 if (col > 0) {
-                    Pixel v1 = pix.get(row * width + col - 1);
+                    Pixel v1 = pix.get(pix.size() - 2);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - 2);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
                     g.addEdge(g1, g2, d);
+                    System.out.println(g1.data().row() + " " + g1.data().col());
+                    System.out.println(g2.data().row() + " " + g2.data().col());
                 }
                 if (row > 0) {
-                    Pixel v1 = pix.get((row - 1) * width + col);
+                    Pixel v1 = pix.get(pix.size() - width - 1);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - width - 1);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
                     g.addEdge(g1, g2, d);
                 }
             }
         }
+        
+        /*for (WEdge<Pixel> i : g.allEdges()) {
+            Pixel d = i.source().data();
+            Pixel e = i.end().data();
+            // System.out.println(d.col() + " " + d.row());
+            System.out.println(d.row() + " " + d.col());
+            System.out.println(e.row() + " " + e.col());
+        }*/
 
         return g;
     }
