@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashSet;
 
 /**
  * Implementation of a Weighted Graph.
@@ -176,13 +177,15 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<WEdge<VT>> allEdges() {
+        HashSet<WEdge<VT>> all = new HashSet<WEdge<VT>>();
         LinkedList<WEdge<VT>> edges = new LinkedList<WEdge<VT>>();
         for (LinkedList<WEdge<VT>> element : this.map.values()) {
             for (WEdge<VT> edge : element) {
-                if (!edges.contains(edge)) {
-                    edges.add(edge);
-                }
+                all.add(edge);
             }
+        }
+        for (WEdge<VT> edge : all) {
+            edges.add(edge);
         }
         return edges;
     }

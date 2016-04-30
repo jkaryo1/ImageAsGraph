@@ -91,7 +91,6 @@ public final class P4C {
         int sourceID;
         int endID;
         boolean suc;
-
         queue.init(g.allEdges());
 
         for (int i = queue.size(); i > 0; i--) {
@@ -120,7 +119,6 @@ public final class P4C {
 
         try {
             // the line that reads the image file
-
             BufferedImage image = ImageIO.read(new File(args[0]));
             String name = args[0].substring(0, args[0].indexOf('.'));
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
