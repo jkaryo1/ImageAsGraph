@@ -4,8 +4,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.LinkedList;
 
 /**
  * P4.
@@ -54,7 +53,8 @@ public final class P4C {
                 if (row > 0) {
                     Pixel v1 = pix.get(pix.size() - width - 1);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1,
+                            g.id() - width - 1);
                     g.addEdge(g1, g2, d);
                 }
             }
@@ -160,9 +160,6 @@ public final class P4C {
                     }
                 }
             }
-            
-
-            
 
             // You'll need to do that for each connected component,
             // writing each one to a different file, clearing the
