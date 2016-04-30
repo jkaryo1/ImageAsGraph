@@ -43,13 +43,13 @@ public class P4C {
                 if (col > 0) {
                     Pixel v1 = pix.get(row * width + col - 1);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - 2);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - 2);
                     g.addEdge(g1, g2, d);
                 }
                 if (row > 0) {
                     Pixel v1 = pix.get((row - 1) * width + col);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v2, g.id() - width - 1);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
                     g.addEdge(g1, g2, d);
                 }
             }
@@ -111,14 +111,11 @@ public class P4C {
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
-            
-            System.out.print("result =  " + g.allVertices().toString() + "\n");
 
             System.out.print("result =  " + res.size() + "\n");
-            //System.out.print(res.toString() + "\n");
             System.out.print(
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
-
+            
             // make a background image to put a segment into
             for (int i = 0; i < image.getHeight(); i++) {
                 for (int j = 0; j < image.getWidth(); j++) {
