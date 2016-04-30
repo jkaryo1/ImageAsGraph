@@ -122,6 +122,7 @@ public final class P4C {
             // the line that reads the image file
 
             BufferedImage image = ImageIO.read(new File(args[0]));
+            String name = args[0].substring(0, args[0].indexOf('.'));
             WGraphP4<Pixel> g = imageToGraph(image, new PixelDistance());
             List<WEdge<Pixel>> res = segmenter(g, Double.parseDouble(args[1]));
             WGraphP4<Pixel> kruskals = new WGraphP4<>();
@@ -154,7 +155,7 @@ public final class P4C {
                     image.setRGB(d.col(), d.row(), d.value());
                     forest.remove(i);
                 }
-                File f = new File("output" + tree + ".png");
+                File f = new File(name + tree + ".png");
                 ImageIO.write(image, "png", f);
                 for (int i = 0; i < image.getHeight(); i++) {
                     for (int j = 0; j < image.getWidth(); j++) {

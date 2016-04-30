@@ -201,13 +201,14 @@ public class WGraphP4<VT> implements WGraph<VT> {
         LinkedList<GVertex<VT>> reaches = new LinkedList<GVertex<VT>>();
         // using LinkedList<Vertex> as a Stack
         LinkedList<GVertex<VT>> stack = new LinkedList<GVertex<VT>>();
-        boolean[] visited = new boolean[this.numVerts()];  // inits to false
+        boolean[] visited = new boolean[this.numVerts() * 2];  // inits to false
         stack.addFirst(v);
         visited[v.id()] = true;
         while (!stack.isEmpty()) {
             v = stack.removeFirst();
             reaches.add(v);
             for (GVertex<VT> u: this.neighbors(v)) {
+                //System.out.println(u.id());
                 if (!visited[u.id()]) {
                     visited[u.id()] = true;
                     stack.addFirst(u);

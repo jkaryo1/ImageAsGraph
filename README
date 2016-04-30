@@ -38,4 +38,57 @@ Part III - Images as Graphs
 
 --------------------------------------------//
 
-NOTES HERE
+                                       ___-------___
+                                   _-~~             ~~-_
+                                _-~                    /~-_
+             /^\__/^\         /~  \                   /    \
+           /|  O|| O|        /      \_______________/        \
+          | |___||__|      /       /                \          \
+          |          \    /      /                    \          \
+          |   (_______) /______/                        \_________ \
+          |         / /         \                      /            \
+           \         \^\\         \                  /               \     /
+             \         ||           \______________/      _-_       //\__//
+               \       ||------_-~~-_ ------------- \ --/~   ~\    || __/
+                 ~-----||====/~     |==================|       |/~~~~~
+                  (_(__/  ./     /                    \_\      \.
+                         (_(___/                         \_____)_)
+                         
+					"Your speed doesn't matter - Forward is forward."
+             				-- Ancient Chinese Proverb
+
+Part III was much more difficult and time consuming than part I and II combined, dare I say.
+We were able to correctly split each image into their corresponding components. 
+While our program does suffer at times when it comes to time complexity, all images 
+do get processed. When implementing segmenter, we used our PQHeap and a new class called 
+GraphPartition. GraphPartition utilized a HashMap of <Integer, MinMax> because we believed 
+a HashMap would provide the fastest, most efficient access (a MinMax is a simple class we 
+created on the fly). Despite the slowness when it comes to large images, the files write 
+relatively quickly, so the slowest part is initializing the PQHeap.
+
+1: What was awkward with respect to the original WGraph interface when using it to solve 
+   part C? How would you have liked to change it?
+   
+   It seemed as though we were always taking things out of one graph and putting them into 
+   a new graph with very small changes. We wish there were more direct graph functions and
+   more explicit directions as to what we were supposed to do.
+   
+2: What k values worked for certain images you tested with? What challenges did you 
+   encounter in part C in particular?
+   
+   When the images were small and very sharp around the edges, most k values seemed to 
+   work well. Larger images seemed to need k values that were larger so as to maintain 
+   edges.
+   
+3: Where is your solution the slowest and why? Could you have done things differently to 
+   improve this?
+
+   Our solution is slowest when initializing the PQHeap. We most likely could have 
+   utilized a different backbone to the heap in order to make it more efficient.
+   
+   
+Thanks Data Structures TAs!!!!
+
+Love,
+
+Dave, Derek, Alex, and Jack
