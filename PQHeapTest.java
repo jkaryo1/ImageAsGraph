@@ -41,13 +41,10 @@ public class PQHeapTest {
     static PQHeap<Integer> randomgen;
     /**Array of PQHeaps.*/
     static PQHeap<Integer>[] differentsizes;
-    /**Comparator.*/
-    static MaxComparator<Integer> comp;
 
     /**Before test.*/
     @Before
     public void initialize() {
-        comp = new MaxComparator<Integer>();
         /**To test empty heap. */
         empty = new PQHeap<Integer>();
 
