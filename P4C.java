@@ -2,13 +2,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+
 
 /**
  * P4.
@@ -16,7 +13,13 @@ import java.util.LinkedList;
  * @author Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer jkaryo1,
  *         cknowlt3, dfeldma9, dfisch11 P4 600.226
  */
-public class P4C {
+public final class P4C {
+    /**
+     * Default constructor.
+     */
+    private P4C() {
+
+    }
 
     /**
      * Convert an image to a graph of Pixels with edges between north, south,
@@ -51,8 +54,7 @@ public class P4C {
                 if (row > 0) {
                     Pixel v1 = pix.get(pix.size() - width - 1);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1,
-                            g.id() - width - 1);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
                     g.addEdge(g1, g2, d);
                 }
             }
@@ -137,9 +139,6 @@ public class P4C {
             for (WEdge<Pixel> e : res) {
                 kruskals.addEdge(e);
             }
-
-            // System.out.print("result = " + kruskals.allVertices().toString()
-            // + "\n");
 
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
