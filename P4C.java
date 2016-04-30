@@ -36,8 +36,7 @@ public class P4C {
         int width = image.getWidth();
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                Pixel v2 = new Pixel(col, row,
-                        image.getRGB(col, row));
+                Pixel v2 = new Pixel(col, row, image.getRGB(col, row));
                 pix.add(v2);
                 GVertex<Pixel> g2 = new GVertex<Pixel>(v2, g.nextID());
                 g.addVertex(g2);
@@ -52,19 +51,19 @@ public class P4C {
                 if (row > 0) {
                     Pixel v1 = pix.get(pix.size() - width - 1);
                     double d = pd.distance(v1, v2);
-                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1, g.id() - width - 1);
+                    GVertex<Pixel> g1 = new GVertex<Pixel>(v1,
+                            g.id() - width - 1);
                     g.addEdge(g1, g2, d);
                 }
             }
         }
-        
-        /*for (WEdge<Pixel> i : g.allEdges()) {
-            Pixel d = i.source().data();
-            Pixel e = i.end().data();
-            // System.out.println(d.col() + " " + d.row());
-            System.out.println(d.row() + " " + d.col());
-            System.out.println(e.row() + " " + e.col());
-        }*/
+
+        /*
+         * for (WEdge<Pixel> i : g.allEdges()) { Pixel d = i.source().data();
+         * Pixel e = i.end().data(); // System.out.println(d.col() + " " +
+         * d.row()); System.out.println(d.row() + " " + d.col());
+         * System.out.println(e.row() + " " + e.col()); }
+         */
 
         return g;
     }
@@ -126,7 +125,7 @@ public class P4C {
             System.out.print("result =  " + res.size() + "\n");
             System.out.print(
                     "NSegments =  " + (g.numVerts() - res.size()) + "\n");
-            
+
             // make a background image to put a segment into
             for (int i = 0; i < image.getHeight(); i++) {
                 for (int j = 0; j < image.getWidth(); j++) {
@@ -139,24 +138,32 @@ public class P4C {
                 kruskals.addEdge(e);
             }
 
-            //System.out.print("result =  " + kruskals.allVertices().toString() + "\n");
-            
+            // System.out.print("result = " + kruskals.allVertices().toString()
+            // + "\n");
+
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
-            /*for (GVertex<Pixel> i : kruskals.allVertices()) {
-                Pixel d = i.data();
-                // System.out.println(d.col() + " " + d.row());
-                image.setRGB(d.col(), d.row(), d.value());
-            }*/
-            Iterator<GVertex<Pixel>> iter = kruskals.allVertices().iterator();
-            for (int row = 0; row < image.getHeight(); row++) {
-                for (int col = 0; col < image.getWidth(); col++) {
-                    image.setRGB(col, row, iter.next().data().value());
+            LinkedList<GVertex<Pixel>> forest = new LinkedList<GVertex<Pixel>>(
+                    kruskals.allVertices());
+            int tree = 1;
+            while (!forest.isEmpty()) {
+                GVertex<Pixel> head = forest.peek();
+                for (GVertex<Pixel> i : kruskals.depthFirst(head)) {
+                    Pixel d = i.data();
+                    image.setRGB(d.col(), d.row(), d.value());
+                    forest.remove();
+                }
+                File f = new File("output" + tree + ".png");
+                ImageIO.write(image, "png", f);
+                for (int i = 0; i < image.getHeight(); i++) {
+                    for (int j = 0; j < image.getWidth(); j++) {
+                        image.setRGB(j, i, gray);
+                    }
                 }
             }
+            
 
-            File f = new File("output.png");
-            ImageIO.write(image, "png", f);
+            
 
             // You'll need to do that for each connected component,
             // writing each one to a different file, clearing the
