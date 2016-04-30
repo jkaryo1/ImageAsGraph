@@ -163,6 +163,7 @@ public final class P4C {
                         image.setRGB(j, i, gray);
                     }
                 }
+                tree++;
             }
 
             // You'll need to do that for each connected component,
