@@ -1,6 +1,7 @@
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Set of Junit tests for our WGraph implementations.
@@ -73,7 +74,7 @@ public class WGraphTest {
         assertEquals(false, this.g.areAdjacent(this.v, this.y));
     }
 
-    /**Incidence test.*/
+    /** Incidence test. */
     @Test
     public void testIncidence() {
         this.g.addVertex(this.v);
@@ -92,7 +93,7 @@ public class WGraphTest {
         assertEquals(2, this.g.numEdges());
     }
 
-    /**Degree test.*/
+    /** Degree test. */
     @Test
     public void testDegree() {
         this.g.addVertex(this.v);
@@ -108,7 +109,7 @@ public class WGraphTest {
         assertEquals(0, this.g.degree(this.y));
     }
 
-    /**Neighbor test.*/
+    /** Neighbor test. */
     @Test
     public void testNeighbors() {
         this.g.addVertex(this.v);
@@ -126,7 +127,7 @@ public class WGraphTest {
         assertEquals("[]", this.g.neighbors(this.y).toString());
     }
 
-    /**All edges test.*/
+    /** All edges test. */
     @Test
     public void testAllEdges() {
         assertEquals("[]", this.g.allEdges().toString());
@@ -143,7 +144,7 @@ public class WGraphTest {
         assertEquals(2, this.g.numEdges());
     }
 
-    /**All vertices test.*/
+    /** All vertices test. */
     @Test
     public void testAllVertices() {
         assertEquals("[]", this.g.allVertices().toString());
@@ -157,7 +158,7 @@ public class WGraphTest {
         assertEquals("[0, 1, 2, 3]", this.g.allVertices().toString());
     }
 
-    /**Depth first test.*/
+    /** Depth first test. */
     @Test
     public void testDepthFirst() {
         this.g.addVertex(this.v);
@@ -176,7 +177,7 @@ public class WGraphTest {
         assertEquals("[1, 0, 2]", this.g.depthFirst(this.u).toString());
     }
 
-    /**Delete edge test.*/
+    /** Delete edge test. */
     @Test
     public void testDeleteEdge() {
         this.g.addVertex(this.v);
@@ -198,7 +199,7 @@ public class WGraphTest {
         assertEquals(false, this.g.areAdjacent(this.v, this.u));
     }
 
-    /**Kruskal's test.*/
+    /** Kruskal's test. */
     @Test
     public void testKruskals() {
         GVertex<Character> a = new GVertex<>('a', this.g.nextID());
@@ -227,9 +228,12 @@ public class WGraphTest {
         this.g.addEdge(new WEdge<>(d, a, 6));
         this.g.addEdge(new WEdge<>(d, this.v, 1));
         this.g.addEdge(new WEdge<>(this.y, this.y, 1));
-        assertEquals(
-                "[(0,1,1.0), (0,2,1.0), (0,7,1.0), (5,6,2.0), (2,3,3.0), "
-                + "(4,7,6.0)]", this.g.kruskals().toString());
+        String firstPart = this.g.kruskals().toString().substring(0, 33);
+        assertTrue("Not sorted correctly", firstPart.contains("(0,1,1.0)"));
+        assertTrue("Not sorted correctly", firstPart.contains("(0,2,1.0)"));
+        assertTrue("Not sorted correctly", firstPart.contains("(0,7,1.0)"));
+        assertEquals("Not sorted correctly", "(5,6,2.0), (2,3,3.0), (4,7,6.0)]",
+                this.g.kruskals().toString().substring(34));
 
         WGraph<Character> empty = new WGraphP4<Character>();
         assertEquals("[]", empty.kruskals().toString()); // test empty
