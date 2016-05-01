@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -149,11 +150,12 @@ public final class P4C {
             while (!forest.isEmpty()) {
                 GVertex<Pixel> head = forest.peek();
                 List<GVertex<Pixel>> depth = kruskals.depthFirst(head);
+                Collections.sort(depth);
                 for (GVertex<Pixel> i : depth) {
                     Pixel d = i.data();
                     image.setRGB(d.col(), d.row(), d.value());
                     if (!forest.isEmpty()) {
-                        forest.remove(i);
+                        forest.remove();
                     }
                 }
                 File f = new File(name + tree + ".png");
