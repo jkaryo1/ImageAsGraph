@@ -7,25 +7,24 @@ import java.util.HashSet;
 
 /**
  * Implementation of a Weighted Graph.
- * @author Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer
- * jkaryo1, cknowlt3, dfeldma9, dfisch11
- * P4
- * 600.226
- * @param <VT> is the type
+ * 
+ * @author Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer jkaryo1,
+ *         cknowlt3, dfeldma9, dfisch11 P4 600.226
+ * @param <VT>
+ *            is the type
  */
 public class WGraphP4<VT> implements WGraph<VT> {
-    
+
     /** Used to generate Vertex IDs. */
     private int nextID;
-    
+
     /** the number of edges. */
     private int numEdges;
-    /** 
-     * Adjacency/Incidence Hashmap.
-     * Stores a vertex and list of incident edges.
+    /**
+     * Adjacency/Incidence Hashmap. Stores a vertex and list of incident edges.
      */
     private HashMap<GVertex<VT>, LinkedList<WEdge<VT>>> map;
-    
+
     /**
      * Constructor for WGraphP4.
      */
@@ -44,8 +43,10 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public int numVerts() {
         return this.map.size();
     }
-    
-    /**Returns current ID.
+
+    /**
+     * Returns current ID.
+     * 
      * @return current id
      */
     public int id() {
@@ -56,7 +57,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public int nextID() {
         return this.nextID++;
     }
-    
+
     @Override
     public boolean addVertex(VT d) {
         LinkedList<WEdge<VT>> list = new LinkedList<WEdge<VT>>();
@@ -86,11 +87,11 @@ public class WGraphP4<VT> implements WGraph<VT> {
     public boolean addEdge(GVertex<VT> v, GVertex<VT> u, double weight) {
         WEdge<VT> edge = new WEdge<VT>(v, u, weight);
         WEdge<VT> edgeR = new WEdge<VT>(u, v, weight);
-        
+
         if (u.equals(v)) {
             return false;
         }
- 
+
         // put the vertexes in
         boolean success = true;
         if (!this.map.containsKey(v)) {
@@ -102,17 +103,21 @@ public class WGraphP4<VT> implements WGraph<VT> {
         if (!success) {
             return false;
         }
-        
+
         // put the edge in, if not already there
         if (this.map.get(v).contains(edge)) {
             return false;
         }
         boolean added;
-        added = this.map.get(v).add(edge);
-        Collections.sort(this.map.get(v));
+        LinkedList<WEdge<VT>> set1 = this.map.get(v);
+        added = set1.add(edge);
+        Collections.sort(set1);
         if (added) {
-            added = this.map.get(u).add(edgeR);
-            Collections.sort(this.map.get(v));
+            this.map.put(v, set1);
+            LinkedList<WEdge<VT>> set2 = this.map.get(u);
+            added = set2.add(edgeR);
+            Collections.sort(set2);
+            this.map.put(u, set2);
         }
         if (added) {
             this.numEdges++;
@@ -177,11 +182,15 @@ public class WGraphP4<VT> implements WGraph<VT> {
 
     @Override
     public List<WEdge<VT>> allEdges() {
-        HashSet<WEdge<VT>> all = new HashSet<WEdge<VT>>();
+        HashSet<WEdge<VT>> all = new HashSet<WEdge<VT>>(this.numEdges * 2);
         LinkedList<WEdge<VT>> edges = new LinkedList<WEdge<VT>>();
         for (LinkedList<WEdge<VT>> element : this.map.values()) {
             for (WEdge<VT> edge : element) {
-                all.add(edge);
+                WEdge<VT> edgeR = new WEdge<VT>(edge.end(), edge.source(),
+                        edge.weight());
+                if (!all.contains(edgeR)) {
+                    all.add(edge);
+                }
             }
         }
         for (WEdge<VT> edge : all) {
@@ -204,14 +213,14 @@ public class WGraphP4<VT> implements WGraph<VT> {
         LinkedList<GVertex<VT>> reaches = new LinkedList<GVertex<VT>>();
         // using LinkedList<Vertex> as a Stack
         LinkedList<GVertex<VT>> stack = new LinkedList<GVertex<VT>>();
-        boolean[] visited = new boolean[this.numVerts() * 2];  // inits to false
+        boolean[] visited = new boolean[this.numVerts() * 2]; // inits to false
         stack.addFirst(v);
         visited[v.id()] = true;
         while (!stack.isEmpty()) {
             v = stack.removeFirst();
             reaches.add(v);
-            for (GVertex<VT> u: this.neighbors(v)) {
-                //System.out.println(u.id());
+            for (GVertex<VT> u : this.neighbors(v)) {
+                // System.out.println(u.id());
                 if (!visited[u.id()]) {
                     visited[u.id()] = true;
                     stack.addFirst(u);
@@ -224,7 +233,7 @@ public class WGraphP4<VT> implements WGraph<VT> {
     @Override
     public List<WEdge<VT>> incidentEdges(GVertex<VT> v) {
         if (this.map.containsKey(v)) {
-            return this.map.get(v);
+            return new LinkedList<WEdge<VT>>(this.map.get(v));
         }
         return null;
     }
@@ -240,14 +249,14 @@ public class WGraphP4<VT> implements WGraph<VT> {
         boolean suc;
 
         queue.init(this.allEdges());
-        
+
         for (int i = queue.size(); i > 0; i--) {
             temp = queue.remove();
             sourceID = temp.source().id();
             endID = temp.end().id();
-            
+
             suc = part.union(endID, sourceID);
-            
+
             if (suc) {
                 edges.add(temp);
             }

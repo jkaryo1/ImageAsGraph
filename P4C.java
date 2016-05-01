@@ -5,7 +5,8 @@ import javax.imageio.ImageIO;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * P4.
@@ -144,19 +145,19 @@ public final class P4C {
 
             // After you have a spanning tree connected component x,
             // you can generate an output image like this:
-            LinkedList<GVertex<Pixel>> forest = 
-                    (LinkedList<GVertex<Pixel>>) kruskals.allVertices();
+            HashSet<GVertex<Pixel>> forest = new HashSet<GVertex<Pixel>>(
+                    kruskals.allVertices());
             int tree = 1;
             while (!forest.isEmpty()) {
-                GVertex<Pixel> head = forest.peek();
+                Iterator<GVertex<Pixel>> iter = forest.iterator();
+                GVertex<Pixel> head = iter.next();
+                iter = null;
                 List<GVertex<Pixel>> depth = kruskals.depthFirst(head);
                 Collections.sort(depth);
                 for (GVertex<Pixel> i : depth) {
                     Pixel d = i.data();
                     image.setRGB(d.col(), d.row(), d.value());
-                    if (!forest.isEmpty()) {
-                        forest.remove();
-                    }
+                    forest.remove(i);
                 }
                 File f = new File(name + tree + ".png");
                 ImageIO.write(image, "png", f);
