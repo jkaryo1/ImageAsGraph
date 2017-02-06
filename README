@@ -1,5 +1,12 @@
-Jon Karyo, Calvin Knowlton, David Feldman, Derek Fischer
-jkaryo1, cknowlt3, dfeldma9, dfisch11
+To Run
+--------------------------------------------//
+
+To run this program, you must run P4C.java with 2 command line
+arguments. The first is a .png image and the second is an integer
+to sharpen color splits on image partitions. Running the program
+will create files of the image argument if considering the image
+as a graph with disconnected subgraphs based on pixel color.
+
 --------------------------------------------//
 
 Part I - Graph Implementation 
@@ -92,10 +99,3 @@ finishing to being complete, and correct, in 18 seconds.
    Our solution is slowest when running segementer. This comes from the need to process 
    very large numbers of pixels. HashSets could have helped with this speed, however they 
    have both space limitations and access limitations.
-   
-   
-Thanks Data Structures TAs!!!!
-
-Love,
-
-Dave, Derek, Alex, and Jack
